@@ -3,6 +3,7 @@ import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onbarding_screen.dart';
 import 'package:my_ticket/auth/register.dart';
 import 'package:my_ticket/client/pages/client_home.dart';
+import 'package:my_ticket/client/pages/ticket.dart';
 import 'package:my_ticket/auth/register_with_email.dart';
 
 void main() {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const Register(),
         '/client-home': (context) => const ClientHome(),
         '/register-with-email': (context) => RegisterWithEmail(),
+        '/ticket': (context) => TransportationTicket(),
       },
     );
   }
