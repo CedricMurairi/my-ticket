@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,12 +13,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToOnboarding();
+    Timer(
+      const Duration(seconds: 3),
+      () => {
+        Navigator.pushReplacementNamed(context, '/onboarding'),
+      },
+    );
   }
 
-  _navigateToOnboarding() async {
-    await Future.delayed(const Duration(milliseconds: 5000), () {});
-    Navigator.pushReplacementNamed(context, '/onboarding');
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

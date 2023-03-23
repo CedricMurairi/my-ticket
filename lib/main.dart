@@ -4,8 +4,13 @@ import 'package:my_ticket/shared/onbarding_screen.dart';
 import 'package:my_ticket/auth/register.dart';
 import 'package:my_ticket/client/pages/client_home.dart';
 import 'package:my_ticket/auth/register_with_email.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Itike App',
+      title: 'Itike',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
