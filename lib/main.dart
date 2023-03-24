@@ -3,7 +3,7 @@ import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onbarding_screen.dart';
 import 'package:my_ticket/auth/register.dart';
 import 'package:my_ticket/client/pages/client_home.dart';
-import 'package:my_ticket/client/pages/ticket.dart';
+import 'package:my_ticket/shared/ticket_widget.dart';
 import 'package:my_ticket/auth/register_with_email.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
