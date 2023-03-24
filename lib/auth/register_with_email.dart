@@ -4,8 +4,7 @@ class RegisterWithEmail extends StatelessWidget {
   RegisterWithEmail({super.key});
 
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -20,13 +19,13 @@ class RegisterWithEmail extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 40.0, left: 40.0),
               child: Text(
-                'Register with Email',
+                'Register With Phone Number',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.2),
+                  horizontal: MediaQuery.of(context).size.width * 0.1),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -35,23 +34,35 @@ class RegisterWithEmail extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: TextFormField(
+                        keyboardType: TextInputType.name,
                         controller: nameController,
                         decoration: const InputDecoration(
                           labelText: 'Name',
+                          floatingLabelStyle: TextStyle(color: Colors.grey),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
                           border: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.black, width: 0.5),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25))),
                         ),
+                        validator: (String? value){
+                          if(value == null){
+                            return "Enter name";
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.always,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: TextFormField(
-                        controller: emailController,
+                        keyboardType: TextInputType.phone,
+                        controller: phoneNumberController,
                         decoration: const InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Phone Number',
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
                           border: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.black, width: 0.5),
@@ -61,22 +72,7 @@ class RegisterWithEmail extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: TextFormField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.black, width: 0.5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextButton(
                         style: const ButtonStyle(
                           shape: MaterialStatePropertyAll(
@@ -109,6 +105,7 @@ class RegisterWithEmail extends StatelessWidget {
                       child: RichText(
                         text: const TextSpan(
                             text: 'Already have an account?',
+                            style: TextStyle(color: Colors.black),
                             children: <TextSpan>[
                               TextSpan(
                                 text: 'Login',
