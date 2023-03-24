@@ -16,29 +16,29 @@ class _ClientHomeState extends State<ClientHome> {
     "uid": ""
   };
 
-  @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('You are not logged in'),
-          ),
-        );
-        Navigator.pushReplacementNamed(context, "/register");
-      } else {
-        setState(() {
-          currentUser = {
-            "name": user.displayName!,
-            "email": user.email!,
-            "photoUrl": user.photoURL!,
-            "uid": user.uid
-          };
-        });
-      }
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (user == null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('You are not logged in'),
+  //         ),
+  //       );
+  //       Navigator.pushReplacementNamed(context, "/register");
+  //     } else {
+  //       setState(() {
+  //         currentUser = {
+  //           "name": user.displayName!,
+  //           "email": user.email!,
+  //           "photoUrl": user.photoURL!,
+  //           "uid": user.uid
+  //         };
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,13 @@ class _ClientHomeState extends State<ClientHome> {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                 },
-                child: const Text("Sign Out"))
+                child: const Text("Sign Out")),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/widget-test');
+              },
+              child: const Text('Bim'),
+            )
           ],
         ),
       ),

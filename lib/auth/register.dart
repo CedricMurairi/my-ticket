@@ -96,16 +96,17 @@ class Register extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(Colors.white),
                       ),
                       onPressed: () async {
-                        User? user = await signInWithGoogle();
-                        if (user != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Signed as ${user.email}'),
-                            ),
-                          );
-                          Navigator.pushReplacementNamed(
-                              context, '/client-home');
-                        }
+                        // User? user = await signInWithGoogle();
+                        // if (user != null) {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(
+                        //       content: Text('Signed as ${user.email}'),
+                        //     ),
+                        //   );
+                        //   Navigator.pushReplacementNamed(
+                        //       context, '/client-home');
+                        // }
+                        Navigator.pushReplacementNamed(context, '/client-home');
                       },
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
