@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_ticket/shared/ticket_widget.dart';
 
 class ClientHome extends StatefulWidget {
   const ClientHome({super.key});
@@ -26,7 +27,7 @@ class _ClientHomeState extends State<ClientHome> {
             content: Text('You are not logged in'),
           ),
         );
-        Navigator.pushReplacementNamed(context, "/register");
+        Navigator.pushNamed(context, "/register");
       } else {
         setState(() {
           currentUser = {
@@ -53,13 +54,23 @@ class _ClientHomeState extends State<ClientHome> {
             Text("Email: ${currentUser["email"]!}"),
             Text("UID: ${currentUser["uid"]!}"),
             TextButton(
-                style: ButtonStyle(
-                    side: MaterialStateProperty.all(
-                        const BorderSide(color: Colors.blueAccent))),
-                onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                },
-                child: const Text("Sign Out"))
+              style: ButtonStyle(
+                  side: MaterialStateProperty.all(
+                      const BorderSide(color: Colors.blueAccent))),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              child: const Text("Sign Out"),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                  side: MaterialStateProperty.all(
+                      const BorderSide(color: Colors.blueAccent))),
+              onPressed: () async {
+                Navigator.of(context).pushNamed("/ticket");
+              },
+              child: const Text("Ticket"),
+            ),
           ],
         ),
       ),
