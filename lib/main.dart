@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+// import 'package:my_ticket/shared/form.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onbarding_screen.dart';
 import 'package:my_ticket/auth/register.dart';
 import 'package:my_ticket/client/pages/client_home.dart';
+import 'package:my_ticket/shared/ticket_widget.dart';
 import 'package:my_ticket/auth/register_with_email.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:my_ticket/shared/widget_test.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -16,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Itike App',
+      title: 'Itike',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -27,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const Register(),
         '/client-home': (context) => const ClientHome(),
         '/register-with-email': (context) => RegisterWithEmail(),
+        '/ticket': (context) => const TransportationTicket(),
+        '/widget-test': (context) => const WidgetTest(),
       },
     );
   }

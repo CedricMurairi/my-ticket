@@ -1,7 +1,42 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
+
+  Future<User?> signInWithGoogle() async {
+    User? user;
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    try {
+      // Once signed in, return the UserCredential
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      // return await FirebaseAuth.instance.signInWithCredential(credential);
+      user = userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        debugPrint("The account already exists with a different credential");
+      } else if (e.code == 'invalid-credential') {
+        debugPrint("Error occurred while accessing credentials. Try again.");
+      }
+    } catch (e) {
+      debugPrint("Error occurred using Google Sign In. Try again.");
+    }
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +60,10 @@ class Register extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset('assets/images/man_bike.png'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: TextButton(
-                      style: const ButtonStyle(
+                      style: ButtonStyle(
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -38,13 +73,11 @@ class Register extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(
                             Color.fromRGBO(217, 231, 203, 1)),
                       ),
-                      child: const Text(
+                      onPressed: null,
+                      child: Text(
                         "Continue as a Guest",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/client-home');
-                      },
                     ),
                   ),
                   Padding(
@@ -60,7 +93,18 @@ class Register extends StatelessWidget {
                         fixedSize: MaterialStatePropertyAll(Size(320, 55)),
                         backgroundColor: MaterialStatePropertyAll(Colors.white),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        User? user = await signInWithGoogle();
+                        if (user != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Signed as ${user.email}'),
+                            ),
+                          );
+                          Navigator.pushNamed(
+                              context, '/client-home');
+                        }
+                      },
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -89,7 +133,7 @@ class Register extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
+                        Navigator.pushNamed(
                             context, '/register-with-email');
                       },
                       child: Row(
@@ -99,7 +143,7 @@ class Register extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.only(left: 10.0),
                               child: Text(
-                                'Continue with Email',
+                                'Continue with Phone',
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
