@@ -60,10 +60,10 @@ class Register extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset('assets/images/man_bike.png'),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
                     child: TextButton(
-                      style: const ButtonStyle(
+                      style: ButtonStyle(
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -73,13 +73,11 @@ class Register extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(
                             Color.fromRGBO(217, 231, 203, 1)),
                       ),
-                      child: const Text(
+                      onPressed: null,
+                      child: Text(
                         "Continue as a Guest",
                         style: TextStyle(color: Colors.black),
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/client-home');
-                      },
                     ),
                   ),
                   Padding(
@@ -103,7 +101,7 @@ class Register extends StatelessWidget {
                               content: Text('Signed as ${user.email}'),
                             ),
                           );
-                          Navigator.pushReplacementNamed(
+                          Navigator.pushNamed(
                               context, '/client-home');
                         }
                       },
@@ -135,7 +133,7 @@ class Register extends StatelessWidget {
                         backgroundColor: MaterialStatePropertyAll(Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacementNamed(
+                        Navigator.pushNamed(
                             context, '/register-with-email');
                       },
                       child: Row(
@@ -145,7 +143,7 @@ class Register extends StatelessWidget {
                             const Padding(
                               padding: EdgeInsets.only(left: 10.0),
                               child: Text(
-                                'Continue with Email',
+                                'Continue with Phone',
                                 style: TextStyle(color: Colors.black),
                               ),
                             ),
