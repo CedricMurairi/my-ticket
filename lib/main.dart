@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const Register(),
         '/client-home': (context) => const ClientHome(),
         '/register-with-email': (context) => RegisterWithEmail(),
-        '/ticket': (context) => const TransportationTicket(),
+        '/ticket': (context) => const TransportationTicketPopUp(),
         '/widget-test': (context) => const WidgetTest(),
       },
     );
