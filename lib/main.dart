@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:my_ticket/shared/form.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onbarding_screen.dart';
 import 'package:my_ticket/auth/register.dart';
