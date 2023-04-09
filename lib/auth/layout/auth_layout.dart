@@ -27,10 +27,11 @@ class AuthenticationLayout extends StatelessWidget {
             leadingIsButton
                 ? Padding(
                     padding: const EdgeInsets.only(top: 40.0, left: 40.0),
+              // BackButton(color: Colors.black, onPressed: (){},),
                     child: CustomTextButton(
                       text: leadingText,
                       action: () {
-                        Navigator.pushNamed(context, leadingRoute);
+                        Navigator.pop(context);
                       },
                     ),
                   )
