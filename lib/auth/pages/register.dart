@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:my_ticket/shared/rounded_styled_button.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -60,40 +61,44 @@ class Register extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.asset('assets/images/man_bike.png'),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                          ),
-                        ),
-                        fixedSize: MaterialStatePropertyAll(Size(320, 55)),
-                        backgroundColor: MaterialStatePropertyAll(
-                            Color.fromRGBO(217, 231, 203, 1)),
-                      ),
-                      onPressed: null,
-                      child: Text(
-                        "Continue as a Guest",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                  RoundedStyledButton(
+                    disabled: true,
+                    color: const Color.fromRGBO(217, 231, 203, 1),
+                    child: const Text(
+                      "Continue as a Guest",
+                      style: TextStyle(color: Colors.black),
                     ),
+                    action: () {
+                      Navigator.pushNamed(context, '/client-home');
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: TextButton(
-                      style: const ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 0.5),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                  RoundedStyledButton(
+                    color: const Color.fromRGBO(255, 224, 136, 0.7),
+                    child: const Text(
+                      "Continue with Phone",
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    action: () {
+                      return null;
+                    },
+                  ),
+                  RoundedStyledButton(
+                      border: true,
+                      borderColor: Colors.black,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset('assets/images/gmail.png'),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              'Continue with Google',
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ),
-                        ),
-                        fixedSize: MaterialStatePropertyAll(Size(320, 55)),
-                        backgroundColor: MaterialStatePropertyAll(Colors.white),
+                        ],
                       ),
-                      onPressed: () async {
+                      action: () async {
                         User? user = await signInWithGoogle();
                         if (user != null) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -101,55 +106,9 @@ class Register extends StatelessWidget {
                               content: Text('Signed as ${user.email}'),
                             ),
                           );
-                          Navigator.pushNamed(
-                              context, '/client-home');
+                          Navigator.pushNamed(context, '/client-home');
                         }
-                      },
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/gmail.png'),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                'Continue with Google',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ]),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: TextButton(
-                      style: const ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 0.5),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                          ),
-                        ),
-                        fixedSize: MaterialStatePropertyAll(Size(320, 55)),
-                        backgroundColor: MaterialStatePropertyAll(Colors.white),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, '/register-with-email');
-                      },
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/email.png'),
-                            const Padding(
-                              padding: EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                'Continue with Phone',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ]),
-                    ),
-                  ),
+                      }),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: RichText(
