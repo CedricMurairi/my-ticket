@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:my_ticket/auth/widgets/auth_message.dart';
 import 'package:my_ticket/shared/rounded_styled_button.dart';
+import 'package:my_ticket/shared/text_button.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -109,21 +111,9 @@ class Register extends StatelessWidget {
                           Navigator.pushNamed(context, '/client-home');
                         }
                       }),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: RichText(
-                      text: const TextSpan(
-                          text: 'Already have an account?',
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Login',
-                              style: TextStyle(
-                                color: Colors.blueAccent,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ]),
-                    ),
+                  AuthenticationMessage(
+                    message: "Already have an account?",
+                    leading: CustomTextButton(text: 'Login', action: () {Navigator.pushNamed(context, '/login');}),
                   ),
                 ],
               ),
