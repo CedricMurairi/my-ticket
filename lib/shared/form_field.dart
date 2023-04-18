@@ -6,7 +6,19 @@ class CustomFormField extends StatelessWidget {
   final String hint;
   final TextInputType keyboard;
   final bool obscure;
-  const CustomFormField({required this.controller, required this.hint, required this.keyboard, this.obscure=false, this.prefix="", Key? key}) : super(key: key);
+  final double radius;
+  final TextAlign alignment;
+
+  const CustomFormField(
+      {required this.controller,
+      required this.hint,
+      required this.keyboard,
+      this.obscure = false,
+      this.prefix = "",
+      this.radius = 25,
+      this.alignment = TextAlign.left,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +28,18 @@ class CustomFormField extends StatelessWidget {
         keyboardType: keyboard,
         controller: controller,
         obscureText: obscure,
+        textAlign: alignment,
         decoration: InputDecoration(
           prefixText: prefix,
           hintText: hint,
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 0.5),
-              borderRadius: BorderRadius.all(Radius.circular(25))),
-          contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 0.5),
-              borderRadius: BorderRadius.all(Radius.circular(25))),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black, width: 0.5),
+              borderRadius: BorderRadius.all(Radius.circular(radius))),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
+          border: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black, width: 0.5),
+              borderRadius: BorderRadius.all(Radius.circular(radius))),
         ),
       ),
     );
