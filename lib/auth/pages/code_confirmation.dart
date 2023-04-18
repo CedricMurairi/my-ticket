@@ -43,7 +43,33 @@ class CodeConfirmation extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 10),
-                    child: Row(
+                    child:
+                    // GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5) ,itemCount: 4, itemBuilder: (context, index) =>
+                    // const Expanded(
+                    //   child: Padding(
+                    //     padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    //     child: TextField(
+                    //       textAlign: TextAlign.center,
+                    //       maxLength: 1,
+                    //       autofocus: true,
+                    //       decoration: InputDecoration(
+                    //         hintText: "0",
+                    //         focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(
+                    //                 color: Colors.black, width: 0.5),
+                    //             borderRadius: BorderRadius.all(
+                    //                 Radius.circular(10))),
+                    //         border: OutlineInputBorder(
+                    //             borderSide: BorderSide(
+                    //                 color: Colors.black, width: 0.5),
+                    //             borderRadius: BorderRadius.all(
+                    //                 Radius.circular(10))),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // )
+                    // )
+                    Row(
                       children: [
                         for (int i = 0; i < 4; i++)
                           const Expanded(
@@ -54,7 +80,6 @@ class CodeConfirmation extends StatelessWidget {
                                 maxLength: 1,
                                 autofocus: true,
                                 decoration: InputDecoration(
-                                  hintText: "0",
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 0.5),
