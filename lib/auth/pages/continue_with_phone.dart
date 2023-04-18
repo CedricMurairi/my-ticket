@@ -1,128 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:my_ticket/auth/layout/auth_layout.dart';
+import 'package:my_ticket/auth/widgets/auth_message.dart';
+import 'package:my_ticket/shared/form_field.dart';
+import 'package:my_ticket/shared/rounded_styled_button.dart';
+import 'package:my_ticket/shared/text_button.dart';
 
-class RegisterWithEmail extends StatelessWidget {
-  RegisterWithEmail({super.key});
+class ContinueWithPhone extends StatelessWidget {
+  ContinueWithPhone({super.key});
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  void register() {
+    Map<String, String> clientData = {
+      "name" : nameController.value.text,
+      "phone" : phoneNumberController.value.text,
+      "password" : passwordController.value.text,
+    };
+    debugPrint(clientData.toString());
+    // FirebaseAuth.instance.signInWithPhoneNumber(clientData["phone"]!).then((value) => null);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: Colors.white,
-        child: Stack(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 40.0, left: 40.0),
-              child: Text(
-                'Register With Phone Number',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Name',
-                          floatingLabelStyle: TextStyle(color: Colors.grey),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.black, width: 0.5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        ),
-                        validator: (String? value){
-                          if(value == null){
-                            return "Enter name";
-                          }
-                          return null;
-                        },
-                        autovalidateMode: AutovalidateMode.always,
-                      ),
+    return AuthenticationLayout(
+      leadingIsButton: true,
+      leadingText: "Back",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.1),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomFormField(
+                    controller: nameController,
+                    keyboard: TextInputType.name,
+                    hint: "Name",
+                  ),
+                  CustomFormField(
+                    controller: phoneNumberController,
+                    keyboard: TextInputType.phone,
+                    hint: "",
+                    prefix: "+250",
+                  ),
+                  CustomFormField(
+                    controller: passwordController,
+                    keyboard: TextInputType.text,
+                    obscure: true,
+                    hint: "Password",
+                  ),
+                  RoundedStyledButton(
+                    color: const Color.fromRGBO(217, 231, 203, 1),
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(color: Colors.black),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: TextFormField(
-                        keyboardType: TextInputType.phone,
-                        controller: phoneNumberController,
-                        decoration: const InputDecoration(
-                          labelText: 'Phone Number',
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.black, width: 0.5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: TextButton(
-                        style: const ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25)),
-                            ),
+                    action: () {
+                      if (_formKey.currentState!.validate()) {
+                        register();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Processing Data'),
                           ),
-                          fixedSize: MaterialStatePropertyAll(Size(320, 55)),
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromRGBO(217, 231, 203, 1)),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Processing Data'),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: RichText(
-                        text: const TextSpan(
-                            text: 'Already have an account?',
-                            style: TextStyle(color: Colors.black),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Login',
-                                style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ]),
-                      ),
-                    ),
-                  ],
-                ),
+                        );
+                      }
+                    },
+                  ),
+                  AuthenticationMessage(
+                    message: "Already have an account?",
+                    leading: CustomTextButton(
+                        text: "Login",
+                        action: () {
+                          Navigator.pushNamed(context, '/login');
+                        }),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
