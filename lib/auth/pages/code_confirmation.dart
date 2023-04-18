@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
 
+import '../../shared/form_field.dart';
 import '../../shared/rounded_styled_button.dart';
 import '../../shared/text_button.dart';
 import '../widgets/auth_message.dart';
 
 class CodeConfirmation extends StatelessWidget {
   final String headerText;
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController firstNumberController = TextEditingController();
+  final TextEditingController secondNumberController = TextEditingController();
+  final TextEditingController thirdNumberController = TextEditingController();
+  final TextEditingController fourthNumberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   CodeConfirmation({this.headerText = "", Key? key}) : super(key: key);
@@ -43,57 +47,40 @@ class CodeConfirmation extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, vertical: 10),
-                    child:
-                    // GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5) ,itemCount: 4, itemBuilder: (context, index) =>
-                    // const Expanded(
-                    //   child: Padding(
-                    //     padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    //     child: TextField(
-                    //       textAlign: TextAlign.center,
-                    //       maxLength: 1,
-                    //       autofocus: true,
-                    //       decoration: InputDecoration(
-                    //         hintText: "0",
-                    //         focusedBorder: OutlineInputBorder(
-                    //             borderSide: BorderSide(
-                    //                 color: Colors.black, width: 0.5),
-                    //             borderRadius: BorderRadius.all(
-                    //                 Radius.circular(10))),
-                    //         border: OutlineInputBorder(
-                    //             borderSide: BorderSide(
-                    //                 color: Colors.black, width: 0.5),
-                    //             borderRadius: BorderRadius.all(
-                    //                 Radius.circular(10))),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
-                    // )
-                    Row(
+                    child: Row(
                       children: [
-                        for (int i = 0; i < 4; i++)
-                          const Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 5.0),
-                              child: TextField(
-                                textAlign: TextAlign.center,
-                                maxLength: 1,
-                                autofocus: true,
-                                decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 0.5),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 0.5),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
-                                ),
-                              ),
-                            ),
-                          )
+                        Expanded(
+                            child: CustomFormField(
+                          controller: firstNumberController,
+                          hint: "",
+                          keyboard: TextInputType.number,
+                              radius: 10,
+                              alignment: TextAlign.center,
+                        )),
+                        Expanded(
+                            child: CustomFormField(
+                          controller: secondNumberController,
+                          hint: "",
+                          keyboard: TextInputType.number,
+                              radius: 10,
+                              alignment: TextAlign.center,
+                        )),
+                        Expanded(
+                            child: CustomFormField(
+                          controller: thirdNumberController,
+                          hint: "",
+                          keyboard: TextInputType.number,
+                              radius: 10,
+                              alignment: TextAlign.center,
+                        )),
+                        Expanded(
+                            child: CustomFormField(
+                          controller: fourthNumberController,
+                          hint: "",
+                          keyboard: TextInputType.number,
+                              radius: 10,
+                              alignment: TextAlign.center,
+                        )),
                       ],
                     ),
                   ),
