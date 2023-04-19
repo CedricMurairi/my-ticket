@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
+import 'package:my_ticket/main.dart';
 
 import '../../shared/form_field.dart';
 import '../../shared/rounded_styled_button.dart';
 import '../../shared/text_button.dart';
 import '../widgets/auth_message.dart';
+import '../widgets/success_popup.dart';
 
-class CodeConfirmation extends StatelessWidget {
-  final String headerText;
+class CodeConfirmation extends StatefulWidget {
+  const CodeConfirmation({Key? key}) : super(key: key);
+
+  @override
+  State<CodeConfirmation> createState() => _CodeConfirmationState();
+}
+
+class _CodeConfirmationState extends State<CodeConfirmation> {
   final TextEditingController firstNumberController = TextEditingController();
-  final TextEditingController secondNumberController = TextEditingController();
-  final TextEditingController thirdNumberController = TextEditingController();
-  final TextEditingController fourthNumberController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
-  CodeConfirmation({this.headerText = "", Key? key}) : super(key: key);
+  final TextEditingController secondNumberController = TextEditingController();
+
+  final TextEditingController thirdNumberController = TextEditingController();
+
+  final TextEditingController fourthNumberController = TextEditingController();
+
+  bool showSuccessPopUp = false;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final arguments = (ModalRoute.of(context)?.settings?.arguments ??
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, String>{}) as Map;
 
     return AuthenticationLayout(
@@ -54,32 +66,32 @@ class CodeConfirmation extends StatelessWidget {
                           controller: firstNumberController,
                           hint: "",
                           keyboard: TextInputType.number,
-                              radius: 10,
-                              alignment: TextAlign.center,
+                          radius: 10,
+                          alignment: TextAlign.center,
                         )),
                         Expanded(
                             child: CustomFormField(
                           controller: secondNumberController,
                           hint: "",
                           keyboard: TextInputType.number,
-                              radius: 10,
-                              alignment: TextAlign.center,
+                          radius: 10,
+                          alignment: TextAlign.center,
                         )),
                         Expanded(
                             child: CustomFormField(
                           controller: thirdNumberController,
                           hint: "",
                           keyboard: TextInputType.number,
-                              radius: 10,
-                              alignment: TextAlign.center,
+                          radius: 10,
+                          alignment: TextAlign.center,
                         )),
                         Expanded(
                             child: CustomFormField(
                           controller: fourthNumberController,
                           hint: "",
                           keyboard: TextInputType.number,
-                              radius: 10,
-                              alignment: TextAlign.center,
+                          radius: 10,
+                          alignment: TextAlign.center,
                         )),
                       ],
                     ),
@@ -92,6 +104,21 @@ class CodeConfirmation extends StatelessWidget {
                     ),
                     action: () {
                       if (_formKey.currentState!.validate()) {
+                        if (arguments["action"] == "register") {
+                          showModalBottomSheet(
+                              elevation: 1,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25))),
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SuccessPopUp(
+                                    message: "This message",
+                                    description: "And this one");
+                              });
+                        } else if (arguments["action"] == "reset-pass") {
+                          Navigator.pushNamed(context, "/reset-password");
+                        }
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Processing Data'),
