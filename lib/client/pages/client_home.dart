@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_ticket/shared/ticket_widget.dart';
 
 class ClientHome extends StatefulWidget {
   const ClientHome({super.key});
