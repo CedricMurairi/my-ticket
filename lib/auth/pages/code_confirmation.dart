@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
-import 'package:my_ticket/main.dart';
+import 'package:my_ticket/helpers/trigger_bottom_sheet.dart';
 
 import '../../shared/form_field.dart';
 import '../../shared/rounded_styled_button.dart';
@@ -105,17 +105,12 @@ class _CodeConfirmationState extends State<CodeConfirmation> {
                     action: () {
                       if (_formKey.currentState!.validate()) {
                         if (arguments["action"] == "register") {
-                          showModalBottomSheet(
-                              elevation: 1,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(25))),
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const SuccessPopUp(
-                                    message: "This message",
-                                    description: "And this one");
-                              });
+                          triggerBottomSheet(
+                              context,
+                              const SuccessPopUp(
+                                  message: "Account Registered\nSuccessfully",
+                                  description:
+                                      "Account registered successfully. Get up and running and verify your email later in settings.\nRedirecting to home page now."));
                         } else if (arguments["action"] == "reset-pass") {
                           Navigator.pushNamed(context, "/reset-password");
                         }
