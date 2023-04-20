@@ -30,6 +30,7 @@ class AuthenticationLayout extends StatelessWidget {
               // BackButton(color: Colors.black, onPressed: (){},),
                     child: CustomTextButton(
                       text: leadingText,
+                      customFontSize: 20,
                       action: () {
                         Navigator.pop(context);
                       },

@@ -17,13 +17,15 @@ class ContinueWithPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     void register() {
       Map<String, String> clientData = {
-        "name" : nameController.value.text,
-        "phone" : phoneNumberController.value.text,
-        "password" : passwordController.value.text,
+        "name": nameController.value.text,
+        "phone": phoneNumberController.value.text,
+        "password": passwordController.value.text,
       };
       debugPrint(clientData.toString());
-      Navigator.pushNamed(context, "/verify-number", arguments: {"headerText" : "Confirm with the code to register your account"});
-      // FirebaseAuth.instance.signInWithPhoneNumber(clientData["phone"]!).then((value) => null);
+      Navigator.pushNamed(context, "/verify-number", arguments: {
+        "headerText": "Confirm with the code to register your account",
+        "action": "register"
+      });
     }
 
     return AuthenticationLayout(

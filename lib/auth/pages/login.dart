@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
               style: TextStyle(color: Colors.black),
             ),
             action: () {
-              Navigator.pushNamed(context, '/continue-with-phone');
+              Navigator.pushNamed(context, '/login-with-phone');
             },
           ),
           RoundedStyledButton(
