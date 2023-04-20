@@ -3,7 +3,8 @@ import "package:flutter/material.dart";
 class CustomTextButton extends StatelessWidget {
   final String text;
   final Function action;
-  const CustomTextButton({Key? key, required this.text, required this.action}) : super(key: key);
+  final double customFontSize;
+  const CustomTextButton({Key? key, required this.text, required this.action, this.customFontSize=13}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,8 @@ class CustomTextButton extends StatelessWidget {
           overlayColor: MaterialStateProperty.all(
               const Color.fromRGBO(217, 231, 203, 1))),
       child: Text(text,
-          style: const TextStyle(
+          style: TextStyle(
+            fontSize: customFontSize,
               decoration: TextDecoration.underline, color: Colors.black)),
       onPressed: () => action()
     );
