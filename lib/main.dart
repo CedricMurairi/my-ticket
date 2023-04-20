@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-// import 'package:my_ticket/shared/form.dart';
+import 'package:my_ticket/auth/pages/code_confirmation.dart';
+import 'package:my_ticket/auth/pages/login_with_phone.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
-import 'package:my_ticket/shared/onbarding_screen.dart';
-import 'package:my_ticket/auth/register.dart';
+import 'package:my_ticket/shared/onboarding_screen.dart';
+import 'package:my_ticket/auth/pages/register.dart';
 import 'package:my_ticket/client/pages/client_home.dart';
 import 'package:my_ticket/shared/ticket_widget.dart';
-import 'package:my_ticket/auth/register_with_email.dart';
+import 'package:my_ticket/auth/pages/continue_with_phone.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_ticket/shared/widget_test.dart';
+import 'auth/pages/forgot_password.dart';
+import 'auth/pages/login.dart';
+import 'auth/pages/reset_password.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -33,10 +36,14 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/onboarding': (context) => const Onboarding(),
         '/register': (context) => const Register(),
+        '/login': (context) => const Login(),
         '/client-home': (context) => const ClientHome(),
-        '/register-with-email': (context) => RegisterWithEmail(),
+        '/continue-with-phone': (context) => ContinueWithPhone(),
+        '/verify-number': (context) => const CodeConfirmation(),
+        '/login-with-phone': (context) => LoginWithPhone(),
+        '/forgot-password': (context) => ForgotPassword(),
+        '/reset-password': (context) => ResetPassword(),
         '/ticket': (context) => const TransportationTicket(),
-        '/widget-test': (context) => const WidgetTest(),
       },
     );
   }
