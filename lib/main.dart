@@ -4,7 +4,7 @@ import 'package:my_ticket/auth/pages/login_with_phone.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onboarding_screen.dart';
 import 'package:my_ticket/auth/pages/register.dart';
-import 'package:my_ticket/client/pages/client_home.dart';
+import 'package:my_ticket/client/pages/listings.dart';
 import 'package:my_ticket/shared/ticket_widget.dart';
 import 'package:my_ticket/auth/pages/continue_with_phone.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +43,11 @@ class MyApp extends StatelessWidget {
         '/login-with-phone': (context) => LoginWithPhone(),
         '/forgot-password': (context) => ForgotPassword(),
         '/reset-password': (context) => ResetPassword(),
+        '/listings': (context) => Listings(),
+        '/bus-companies': (context) => BusCompanies(),
+        '/dashboard': (context) => Dashboard(),
+        '/profile': (context) => Profile(),
+        '/settings': (context) => Settings(),
         '/ticket': (context) => const TransportationTicket(),
       },
     );

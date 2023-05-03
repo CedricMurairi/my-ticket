@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_ticket/shared/bottom_navigation.dart';
 
 class ClientHome extends StatefulWidget {
   const ClientHome({super.key});
@@ -43,6 +44,7 @@ class _ClientHomeState extends State<ClientHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
