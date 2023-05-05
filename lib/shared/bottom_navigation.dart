@@ -9,7 +9,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
-  int currentIndex = 2;
+  int currentIndex = 0;
   final List<String> navigationList = [
     '/listings',
     '/bus-companies',

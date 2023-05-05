@@ -12,7 +12,7 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticationLayout(q
+    return AuthenticationLayout(
       leadingIsButton: false,
       leadingText: 'Register',
       child: Column(
