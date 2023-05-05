@@ -9,7 +9,7 @@ class CustomFormField extends StatelessWidget {
   final double radius;
   final TextAlign alignment;
 
-  const CustomFormField(
+  CustomFormField(
       {required this.controller,
       required this.hint,
       required this.keyboard,
