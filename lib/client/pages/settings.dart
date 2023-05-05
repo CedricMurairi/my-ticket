@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
 
-class Listings extends StatefulWidget {
-  const Listings({super.key});
+class Settings extends StatefulWidget {
+  const Settings({super.key});
 
   @override
-  State<Listings> createState() => _ListingsState();
+  State<Settings> createState() => _SettingsState();
 }
 
-class _ListingsState extends State<Listings> {
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return const MainLayout(
-      // index: NavigatorState.,
       child: Center(
-        child: Text("Listings"),
+        child: Text("Settings"),
       ),
     );
   }
