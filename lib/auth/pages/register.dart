@@ -12,7 +12,7 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticationLayout(
+    return AuthenticationLayout(q
       leadingIsButton: false,
       leadingText: 'Register',
       child: Column(
@@ -27,9 +27,7 @@ class Register extends StatelessWidget {
               "Continue as a Guest",
               style: TextStyle(color: Colors.black),
             ),
-            action: () {
-              Navigator.pushNamed(context, '/client-home');
-            },
+            action: () {},
           ),
           RoundedStyledButton(
             color: const Color.fromRGBO(255, 224, 136, 0.7),
@@ -65,7 +63,7 @@ class Register extends StatelessWidget {
                       content: Text('Signed as ${user.email}'),
                     ),
                   );
-                  Navigator.pushNamed(context, '/client-home');
+                  Navigator.pushNamed(context, '/listings');
                 }
               }),
           AuthenticationMessage(

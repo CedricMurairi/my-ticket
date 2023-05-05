@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                     content: Text('Signed as ${user.email}'),
                   ),
                 );
-                Navigator.pushNamed(context, '/client-home');
+                Navigator.pushNamed(context, '/listings');
               }
             },
           ),
