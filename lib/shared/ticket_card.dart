@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import '../client/widgets/payment_form.dart';
 import '../helpers/trigger_bottom_sheet.dart';
 
-class TicketCard extends StatelessWidget {
+class TicketCard extends StatefulWidget {
   final Map<String, dynamic> ticket;
   const TicketCard({required this.ticket, super.key});
 
+  @override
+  State<TicketCard> createState() => _TicketCardState();
+}
+
+class _TicketCardState extends State<TicketCard> {
   @override
   Widget build(BuildContext context) {
     List<int> ticketColors = [0xFFD9E7CB, 0xFFFFDCC1, 0xFFFFE088, 0xFFD9D9D9];
@@ -31,19 +37,21 @@ class TicketCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${ticket['from']} - ${ticket['to']}",
+                      "${widget.ticket['from']} - ${widget.ticket['to']}",
                       style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: Text(
-                          "${ticket['date_of_departure']} | ${ticket['time_of_departure']}"),
+                          "${widget.ticket['date_of_departure']} | ${widget.ticket['time_of_departure']}"),
                     ),
                   ],
                 ),
                 Text(
-                  "Price:${ticket['price']}",
+                  "Price:${widget.ticket['price']}",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w300),
                 ),
@@ -54,7 +62,7 @@ class TicketCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Operator:${ticket['bus_operator']}",
+                  "Operator:${widget.ticket['bus_operator']}",
                   style: const TextStyle(fontSize: 15),
                 ),
                 SizedBox(
@@ -64,16 +72,10 @@ class TicketCard extends StatelessWidget {
                     onPressed: () {
                       triggerBottomSheet(
                         context,
-                        Container(
-                            height: MediaQuery.of(context).size.height * 0.8,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(25),
-                                    topRight: Radius.circular(25))),
-                            child: Column(
-                              children: [],
-                            )),
+                        PaymentForm(
+                          ticketPrice: widget.ticket["price"],
+                        ),
+                        0.70,
                       );
                     },
                     style: ElevatedButton.styleFrom(
