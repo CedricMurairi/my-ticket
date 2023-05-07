@@ -106,13 +106,41 @@ class _BusCompaniesState extends State<BusCompanies> {
                         subtitle: Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: Text(
-                            companies[index]['description'],
+                            companies[index]['description'].length > 100
+                                ? '${companies[index]['description'].substring(0, companies[index]['description'].length ~/ 2)}...'
+                                : companies[index]['description'],
                             style: const TextStyle(fontWeight: FontWeight.w400),
                           ),
                         ),
                         trailing: const Icon(
                           Icons.notifications,
                         ),
+                        onLongPress: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text(
+                                'Description',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              content: Text(
+                                companies[index]['description'],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.3,
+                                ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
