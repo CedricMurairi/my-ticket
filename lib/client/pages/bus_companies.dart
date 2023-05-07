@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import '../widgets/company_description_card.dart';
+
 class BusCompanies extends StatefulWidget {
   const BusCompanies({Key? key}) : super(key: key);
 
@@ -83,65 +85,8 @@ class _BusCompaniesState extends State<BusCompanies> {
                   itemCount: companies.length,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.only(bottom: 0.0),
-                    child: Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: Color(0xFFD9D9D9),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Text(
-                            companies[index]['company_name'],
-                            style: const TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: Text(
-                            companies[index]['description'].length > 100
-                                ? '${companies[index]['description'].substring(0, companies[index]['description'].length ~/ 2)}...'
-                                : companies[index]['description'],
-                            style: const TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        trailing: const Icon(
-                          Icons.notifications,
-                        ),
-                        onLongPress: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text(
-                                'Description',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              content: Text(
-                                companies[index]['description'],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.3,
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('Close'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                    child: CompanyDescriptionCard(
+                      company: companies[index],
                     ),
                   ),
                 ),
