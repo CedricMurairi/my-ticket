@@ -34,19 +34,87 @@ class _BusCompaniesState extends State<BusCompanies> {
         color: Colors.white,
         child: Column(
           children: [
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 30, bottom: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.width * 0.3,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFFD9E7CB),
+                          Color(0xFFFFDCC1),
+                          Color(0xFFFFE088),
+                          Color(0xFFD9D9D9)
+                        ],
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                      ),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.29,
+                      height: MediaQuery.of(context).size.width * 0.29,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/logo.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const Text(
+                  "Bus Co. Details and Notifications",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             Expanded(
-              child: ListView.builder(
-                itemCount: companies.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    // leading: Image.network(
-                    //   companies[index]['display_image'],
-                    //   width: 50,
-                    //   height: 50,
-                    // ),
-                    title: Text(companies[index]['company_name']),
-                    subtitle: Text(companies[index]['description']),
-                    trailing: const Icon(Icons.arrow_forward_ios),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: 30),
+                child: ListView.builder(
+                  padding: const EdgeInsets.only(top: 10, bottom: 0),
+                  itemCount: companies.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 0.0),
+                    child: Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(
+                          color: Color(0xFFD9D9D9),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: ListTile(
+                        title: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Text(
+                            companies[index]['company_name'],
+                            style: const TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            companies[index]['description'],
+                            style: const TextStyle(fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        trailing: const Icon(
+                          Icons.notifications,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
