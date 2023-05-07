@@ -9,7 +9,7 @@ Future<User?> authenticateWithGoogle() async {
 
   // Obtain the auth details from the request
   final GoogleSignInAuthentication? googleAuth =
-  await googleUser?.authentication;
+      await googleUser?.authentication;
 
   // Create a new credential
   final OAuthCredential credential = GoogleAuthProvider.credential(
@@ -20,7 +20,7 @@ Future<User?> authenticateWithGoogle() async {
   try {
     // Once signed in, return the UserCredential
     final UserCredential userCredential =
-    await FirebaseAuth.instance.signInWithCredential(credential);
+        await FirebaseAuth.instance.signInWithCredential(credential);
     // return await FirebaseAuth.instance.signInWithCredential(credential);
     user = userCredential.user!;
   } on FirebaseAuthException catch (e) {

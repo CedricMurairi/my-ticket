@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_ticket/models/user.dart';
+import 'package:provider/provider.dart';
 
 import '../../shared/bottom_navigation.dart';
 
@@ -12,21 +14,16 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
-
   @override
   void initState() {
     super.initState();
 
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('You are not logged in'),
-          ),
-        );
-        Navigator.pushNamed(context, "/login");
-      }
-    });
+    if (FirebaseAuth.instance.currentUser == null) {
+      Navigator.pushNamed(context, '/login');
+    } else {
+      Provider.of<UserModel>(context, listen: false)
+          .setUser(FirebaseAuth.instance.currentUser!);
+    }
   }
 
   @override

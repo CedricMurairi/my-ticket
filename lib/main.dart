@@ -12,16 +12,23 @@ import 'package:my_ticket/client/pages/listings.dart';
 import 'package:my_ticket/shared/ticket_widget.dart';
 import 'package:my_ticket/auth/pages/continue_with_phone.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'auth/pages/forgot_password.dart';
 import 'auth/pages/login.dart';
 import 'auth/pages/reset_password.dart';
 import 'firebase_options.dart';
+import 'models/user.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

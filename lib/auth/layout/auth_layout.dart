@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
+import '../../models/user.dart';
 import '../../shared/text_button.dart';
 
-class AuthenticationLayout extends StatelessWidget {
+class AuthenticationLayout extends StatefulWidget {
   final bool leadingIsButton;
   final String leadingText;
   final String leadingRoute;
@@ -16,6 +19,22 @@ class AuthenticationLayout extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<AuthenticationLayout> createState() => _AuthenticationLayoutState();
+}
+
+class _AuthenticationLayoutState extends State<AuthenticationLayout> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (FirebaseAuth.instance.currentUser != null) {
+      Provider.of<UserModel>(context, listen: false)
+          .setUser(FirebaseAuth.instance.currentUser);
+      Navigator.pushReplacementNamed(context, '/listings');
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -24,12 +43,12 @@ class AuthenticationLayout extends StatelessWidget {
         color: Colors.white,
         child: Stack(
           children: [
-            leadingIsButton
+            widget.leadingIsButton
                 ? Padding(
                     padding: const EdgeInsets.only(top: 40.0, left: 40.0),
-              // BackButton(color: Colors.black, onPressed: (){},),
+                    // BackButton(color: Colors.black, onPressed: (){},),
                     child: CustomTextButton(
-                      text: leadingText,
+                      text: widget.leadingText,
                       customFontSize: 20,
                       action: () {
                         Navigator.pop(context);
@@ -39,13 +58,13 @@ class AuthenticationLayout extends StatelessWidget {
                 : Padding(
                     padding: const EdgeInsets.only(top: 40.0, left: 40.0),
                     child: Text(
-                      leadingText,
+                      widget.leadingText,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ),
             Center(
-              child: child,
+              child: widget.child,
             ),
           ],
         ),
