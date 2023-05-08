@@ -45,6 +45,7 @@ dependencies:
   flutter_svg: ^1.1.6
   vector_graphics_compiler: ^0.0.2
   provider: ^6.0.5
+  location: ^4.4.0
 
 flutter_icons:
   image_path_android: "assets/images/logo.png"
