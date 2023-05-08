@@ -5,6 +5,7 @@ import 'package:my_ticket/client/widgets/profile_settings_card.dart';
 import 'package:my_ticket/shared/text_button.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/location.dart';
 import '../../models/user.dart';
 
 class Profile extends StatefulWidget {
@@ -18,6 +19,8 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel>(context).user;
+    final location =
+        Provider.of<LocationModel>(context, listen: false).userLocation;
 
     return MainLayout(
       child: Container(
@@ -81,10 +84,10 @@ class _ProfileState extends State<Profile> {
                   right: MediaQuery.of(context).size.width * 0.05),
               child: Column(
                 children: [
-                  const ProfileSettingsCard(
-                    title: Text("Location"),
-                    subtitle: Text(""),
-                  ),
+                  ProfileSettingsCard(
+                      title: const Text("Location"),
+                      subtitle: Text(
+                          "${location![0].street ?? ''} | ${location[0].country ?? ''}")),
                   ProfileSettingsCard(
                     title: const Text("Phone Number"),
                     subtitle: Text(

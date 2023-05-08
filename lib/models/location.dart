@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 class LocationModel extends ChangeNotifier {
-  Position? _userLocation;
+  List<Placemark>? _userLocation;
 
-  Position? get user => _userLocation;
+  List<Placemark>? get userLocation => _userLocation;
 
-  void setUser(Position? userLocation) {
+  void setUserLocation(List<Placemark>? userLocation) {
     if (userLocation == _userLocation) return;
     _userLocation = userLocation;
   }

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:my_ticket/shared/ticket_card.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/location.dart';
 import '../widgets/search_form.dart';
 
 class Listings extends StatefulWidget {
@@ -29,6 +31,8 @@ class _ListingsState extends State<Listings> {
 
   @override
   Widget build(BuildContext context) {
+    final location = Provider.of<LocationModel>(context).userLocation ?? [];
+
     return MainLayout(
         child: Container(
       width: MediaQuery.of(context).size.width,
@@ -82,6 +86,7 @@ class _ListingsState extends State<Listings> {
                 key: const PageStorageKey('tickets'),
                 itemBuilder: ((context, index) => TicketCard(
                       ticket: tickets[index],
+                      currency: location[0].isoCountryCode ?? 'RW',
                     )),
                 itemCount: tickets.length,
               ),

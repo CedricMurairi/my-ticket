@@ -6,7 +6,8 @@ import '../helpers/trigger_bottom_sheet.dart';
 
 class TicketCard extends StatefulWidget {
   final Map<String, dynamic> ticket;
-  const TicketCard({required this.ticket, super.key});
+  final String currency;
+  const TicketCard({required this.ticket, required this.currency, super.key});
 
   @override
   State<TicketCard> createState() => _TicketCardState();
@@ -51,7 +52,7 @@ class _TicketCardState extends State<TicketCard> {
                   ],
                 ),
                 Text(
-                  "Price:${widget.ticket['price']}",
+                  "Price: ${widget.currency}${widget.ticket['price']}",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w300),
                 ),

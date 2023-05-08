@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:my_ticket/models/location.dart';
 import 'package:my_ticket/models/user.dart';
 import 'package:provider/provider.dart';
@@ -33,11 +34,24 @@ class MainLayoutState extends State<MainLayout> {
   }
 
   void getLocation() {
-    if (Provider.of<LocationModel>(context, listen: false).user != null) {
+    if (Provider.of<LocationModel>(context, listen: false).userLocation !=
+        null) {
       return;
     }
-    getUserLocation().then((value) =>
-        {Provider.of<LocationModel>(context, listen: false).setUser(value)});
+    try {
+      getUserLocation().then(
+        (location) => {
+          placemarkFromCoordinates(location.latitude, location.longitude).then(
+            (placemarks) => {
+              Provider.of<LocationModel>(context, listen: false)
+                  .setUserLocation(placemarks),
+            },
+          )
+        },
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override
