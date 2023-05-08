@@ -6,8 +6,14 @@ import '../helpers/trigger_bottom_sheet.dart';
 
 class TicketCard extends StatefulWidget {
   final Map<String, dynamic> ticket;
+  final bool toBook;
   final String currency;
-  const TicketCard({required this.ticket, this.currency = 'RWF', super.key});
+  const TicketCard({
+    required this.ticket,
+    this.currency = 'RWF',
+    this.toBook = true,
+    super.key,
+  });
 
   @override
   State<TicketCard> createState() => _TicketCardState();
@@ -52,7 +58,7 @@ class _TicketCardState extends State<TicketCard> {
                   ],
                 ),
                 Text(
-                  "Price: ${widget.currency}${widget.ticket['price']}",
+                  "${widget.toBook == true ? "Price" : "Paid"}: ${widget.currency}${widget.ticket['price']}",
                   style: const TextStyle(
                       fontSize: 20, fontWeight: FontWeight.w300),
                 ),
@@ -73,9 +79,11 @@ class _TicketCardState extends State<TicketCard> {
                     onPressed: () {
                       triggerBottomSheet(
                         context,
-                        PaymentForm(
-                          ticketPrice: widget.ticket["price"],
-                        ),
+                        widget.toBook == true
+                            ? PaymentForm(
+                                ticket: widget.ticket,
+                              )
+                            : const Placeholder(),
                         0.70,
                       );
                     },
@@ -86,11 +94,13 @@ class _TicketCardState extends State<TicketCard> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: const Text("Book Now",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400)),
+                    child: Text(
+                      widget.toBook == true ? "Book Now" : "View",
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                    ),
                   ),
                 )
               ],
