@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:my_ticket/models/bookings.dart';
+import 'package:provider/provider.dart';
+
+import '../../shared/ticket_card.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -16,8 +23,26 @@ class _DashboardState extends State<Dashboard> {
     Text('Past'),
   ];
 
+  List<Map<String, dynamic>> tickets = [];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      rootBundle.loadString('assets/mocks/tickets.json').then((value) {
+        setState(() {
+          tickets = List<Map<String, dynamic>>.from(json.decode(value));
+        });
+      });
+      Provider.of<BookingsModel>(context, listen: false).setBookings();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final bookings =
+        Provider.of<BookingsModel>(context, listen: true).bookings ?? [];
+
     return MainLayout(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -57,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: ToggleButtons(
                 direction: Axis.horizontal,
                 onPressed: (int index) {
@@ -80,24 +105,27 @@ class _DashboardState extends State<Dashboard> {
                 children: ticketCategories,
               ),
             ),
-            // Expanded(
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 20.0),
-            //     child: ListView.builder(
-            //       padding: EdgeInsets.symmetric(
-            //           horizontal: MediaQuery.of(context).size.width * 0.04,
-            //           vertical: 20),
-            //       scrollDirection: Axis.vertical,
-            //       shrinkWrap: true,
-            //       key: const PageStorageKey('tickets'),
-            //       itemBuilder: ((context, index) => TicketCard(
-            //             ticket: tickets[index],
-            //             // currency: location[0].isoCountryCode ?? "RWF",
-            //           )),
-            //       itemCount: tickets.length,
-            //     ),
-            //   ),
-            // )
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.04,
+                      vertical: 20),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  key: const PageStorageKey('tickets'),
+                  itemBuilder: ((context, index) => TicketCard(
+                        ticket: tickets.isNotEmpty && bookings.isNotEmpty
+                            ? tickets.firstWhere((element) =>
+                                element["id"] == bookings[index]['ticketId'])
+                            : {},
+                        toBook: false,
+                      )),
+                  itemCount: bookings.length,
+                ),
+              ),
+            )
           ],
         ),
       ),

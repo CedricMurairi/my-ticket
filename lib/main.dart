@@ -5,6 +5,7 @@ import 'package:my_ticket/client/pages/bus_companies.dart';
 import 'package:my_ticket/client/pages/dashboard.dart';
 import 'package:my_ticket/client/pages/profile.dart';
 import 'package:my_ticket/client/pages/settings.dart';
+import 'package:my_ticket/models/bookings.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onboarding_screen.dart';
 import 'package:my_ticket/auth/pages/register.dart';
@@ -29,6 +30,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => LocationModel()),
         ChangeNotifierProvider(create: (context) => UserModel()),
+        ChangeNotifierProvider(create: (context) => BookingsModel()),
       ],
       child: const MyApp(),
     ),
