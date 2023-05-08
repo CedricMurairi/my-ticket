@@ -17,11 +17,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    bool isSwitched = false;
     TargetPlatform platform = Theme.of(context).platform;
     final user = Provider.of<UserModel>(context);
-    // final location =
-    //     Provider.of<LocationModel>(context, listen: false).userLocation;
 
     return MainLayout(
       child: Container(
@@ -68,10 +65,10 @@ class _SettingsState extends State<Settings> {
                                 ? CupertinoSwitch(
                                     activeColor: const Color.fromARGB(
                                         255, 160, 160, 160),
-                                    value: isSwitched,
+                                    value: user.notify ?? false,
                                     onChanged: (value) {
                                       setState(() {
-                                        isSwitched = value;
+                                        user.setNotify(value);
                                       });
                                     },
                                   )
