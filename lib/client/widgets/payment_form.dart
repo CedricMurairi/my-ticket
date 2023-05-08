@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_ticket/models/bookings.dart';
+import 'package:my_ticket/models/user.dart';
+import 'package:provider/provider.dart';
 
 import '../../shared/form_field.dart';
 import '../../shared/rounded_styled_button.dart';
 
 class PaymentForm extends StatefulWidget {
-  final double ticketPrice;
-  const PaymentForm({required this.ticketPrice, super.key});
+  final Map<String, dynamic> ticket;
+  const PaymentForm({required this.ticket, super.key});
 
   @override
   State<PaymentForm> createState() => _PaymentFormState();
@@ -31,6 +34,10 @@ class _PaymentFormState extends State<PaymentForm> {
 
   @override
   Widget build(BuildContext context) {
+    final bookingOps = Provider.of<BookingsModel>(context);
+    final bookings = Provider.of<BookingsModel>(context).bookings ?? [];
+    final user = Provider.of<UserModel>(context);
+
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
       decoration: const BoxDecoration(
@@ -115,7 +122,7 @@ class _PaymentFormState extends State<PaymentForm> {
                     prefix: "+250",
                   ),
                   CustomFormField(
-                    hint: "${widget.ticketPrice}RWF",
+                    hint: "${widget.ticket['price']}RWF",
                     controller: amountController,
                     keyboard: TextInputType.number,
                     enabled: false,
@@ -137,11 +144,9 @@ class _PaymentFormState extends State<PaymentForm> {
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.resolveWith(getColor),
                         onChanged: (bool? value) => {
-                          setState(
-                            () {
-                              saveForLater = value!;
-                            },
-                          ),
+                          setState(() {
+                            saveForLater = value!;
+                          })
                         },
                       )),
                 ),
@@ -159,7 +164,13 @@ class _PaymentFormState extends State<PaymentForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RoundedStyledButton(
-                action: () {},
+                action: () {
+                  bookingOps.addBooking({
+                    "id": bookings.isNotEmpty ? bookings.last["id"] + 1 : 1,
+                    "ticketId": widget.ticket["id"],
+                    "userId": user.user?.uid,
+                  });
+                },
                 color: const Color.fromRGBO(217, 231, 203, 1),
                 child: const Text(
                   "Pay Now",
