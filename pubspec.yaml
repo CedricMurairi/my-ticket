@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   firebase_database: ^10.1.2
+  path_provider: ^2.0.15
 
 flutter_icons:
   image_path_android: "assets/images/logo.png"
