@@ -9,5 +9,6 @@ class LocationModel extends ChangeNotifier {
   void setUserLocation(List<Placemark>? userLocation) {
     if (userLocation == _userLocation) return;
     _userLocation = userLocation;
+    notifyListeners();
   }
 }

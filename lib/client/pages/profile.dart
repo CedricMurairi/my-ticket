@@ -20,7 +20,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel>(context).user;
     final location =
-        Provider.of<LocationModel>(context, listen: false).userLocation;
+        Provider.of<LocationModel>(context, listen: true).userLocation ?? [];
 
     return MainLayout(
       child: Container(
@@ -86,8 +86,9 @@ class _ProfileState extends State<Profile> {
                 children: [
                   ProfileSettingsCard(
                       title: const Text("Location"),
-                      subtitle: Text(
-                          "${location![0].street ?? ''} | ${location[0].country ?? ''}")),
+                      subtitle: Text(location.isNotEmpty
+                          ? "${location[0].street ?? ''} | ${location[0].country ?? ''}"
+                          : "")),
                   ProfileSettingsCard(
                     title: const Text("Phone Number"),
                     subtitle: Text(
