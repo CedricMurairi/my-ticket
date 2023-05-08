@@ -17,6 +17,7 @@ import 'auth/pages/forgot_password.dart';
 import 'auth/pages/login.dart';
 import 'auth/pages/reset_password.dart';
 import 'firebase_options.dart';
+import 'models/location.dart';
 import 'models/user.dart';
 
 Future<void> main() async {
@@ -24,8 +25,11 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => LocationModel()),
+        ChangeNotifierProvider(create: (context) => UserModel()),
+      ],
       child: const MyApp(),
     ),
   );

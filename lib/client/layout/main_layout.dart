@@ -42,12 +42,9 @@ class MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LocationModel(),
-      child: Scaffold(
-        bottomNavigationBar: const CustomBottomNavigationBar(),
-        body: widget.child,
-      ),
+    return Scaffold(
+      bottomNavigationBar: const CustomBottomNavigationBar(),
+      body: widget.child,
     );
   }
 }
