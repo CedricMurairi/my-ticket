@@ -28,9 +28,11 @@ class _AuthenticationLayoutState extends State<AuthenticationLayout> {
     super.initState();
 
     if (FirebaseAuth.instance.currentUser != null) {
-      Provider.of<UserModel>(context, listen: false)
-          .setUser(FirebaseAuth.instance.currentUser);
-      Navigator.pushReplacementNamed(context, '/listings');
+      Future.delayed(Duration.zero, () {
+        Provider.of<UserModel>(context, listen: false)
+            .setUser(FirebaseAuth.instance.currentUser);
+        Navigator.pushReplacementNamed(context, '/listings');
+      });
     }
   }
 
@@ -46,7 +48,6 @@ class _AuthenticationLayoutState extends State<AuthenticationLayout> {
             widget.leadingIsButton
                 ? Padding(
                     padding: const EdgeInsets.only(top: 40.0, left: 40.0),
-                    // BackButton(color: Colors.black, onPressed: (){},),
                     child: CustomTextButton(
                       text: widget.leadingText,
                       customFontSize: 20,
