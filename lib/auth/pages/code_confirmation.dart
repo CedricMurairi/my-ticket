@@ -106,11 +106,13 @@ class _CodeConfirmationState extends State<CodeConfirmation> {
                       if (_formKey.currentState!.validate()) {
                         if (arguments["action"] == "register") {
                           triggerBottomSheet(
-                              context,
-                              const SuccessPopUp(
-                                  message: "Account Registered\nSuccessfully",
-                                  description:
-                                      "Account registered successfully. Get up and running and verify your email later in settings.\nRedirecting to home page now."));
+                            context,
+                            const SuccessPopUp(
+                                message: "Account Registered\nSuccessfully",
+                                description:
+                                    "Account registered successfully. Get up and running and verify your email later in settings.\nRedirecting to home page now."),
+                            0.5,
+                          );
                         } else if (arguments["action"] == "reset-pass") {
                           Navigator.pushNamed(context, "/reset-password");
                         }

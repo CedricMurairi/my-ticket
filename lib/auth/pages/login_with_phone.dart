@@ -32,7 +32,7 @@ class LoginWithPhone extends StatelessWidget {
                   CustomFormField(
                     controller: phoneNumberController,
                     keyboard: TextInputType.phone,
-                    hint: "",
+                    hint: "Phone number",
                     prefix: "+250",
                   ),
                   CustomFormField(
@@ -48,7 +48,11 @@ class LoginWithPhone extends StatelessWidget {
                         child: CustomTextButton(
                           text: "Forgot password?",
                           action: () {
-                            Navigator.pushNamed(context, "/forgot-password", arguments: {"headerText" : "Provide your number to reset your password",});
+                            Navigator.pushNamed(context, "/forgot-password",
+                                arguments: {
+                                  "headerText":
+                                      "Provide your number to reset your password",
+                                });
                           },
                         ),
                       ),

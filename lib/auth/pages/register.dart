@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
 import 'package:my_ticket/auth/widgets/auth_message.dart';
+import 'package:my_ticket/models/user.dart';
 import 'package:my_ticket/shared/rounded_styled_button.dart';
 import 'package:my_ticket/shared/text_button.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../../firebase/auth.dart';
 
 class Register extends StatelessWidget {
@@ -27,9 +29,7 @@ class Register extends StatelessWidget {
               "Continue as a Guest",
               style: TextStyle(color: Colors.black),
             ),
-            action: () {
-              Navigator.pushNamed(context, '/client-home');
-            },
+            action: () {},
           ),
           RoundedStyledButton(
             color: const Color.fromRGBO(255, 224, 136, 0.7),
@@ -42,32 +42,37 @@ class Register extends StatelessWidget {
             },
           ),
           RoundedStyledButton(
-              border: true,
-              borderColor: Colors.black,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset('assets/svgs/gmail-icon.svg'),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      'Continue with Google',
-                      style: TextStyle(color: Colors.black),
-                    ),
+            border: true,
+            borderColor: Colors.black,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('assets/svgs/gmail-icon.svg'),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Continue with Google',
+                    style: TextStyle(color: Colors.black),
                   ),
-                ],
-              ),
-              action: () async {
-                User? user = await authenticateWithGoogle();
-                if (user != null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Signed as ${user.email}'),
-                    ),
-                  );
-                  Navigator.pushNamed(context, '/client-home');
-                }
-              }),
+                ),
+              ],
+            ),
+            action: () {
+              User? user;
+              authenticateWithGoogle()
+                  .then((value) => null)
+                  .whenComplete(() => user = FirebaseAuth.instance.currentUser);
+              if (user != null) {
+                Provider.of<UserModel>(context).setUser(user);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Registered as ${user?.email}'),
+                  ),
+                );
+                Navigator.pushNamed(context, '/listings');
+              }
+            },
+          ),
           AuthenticationMessage(
             message: "Already have an account?",
             leading: CustomTextButton(

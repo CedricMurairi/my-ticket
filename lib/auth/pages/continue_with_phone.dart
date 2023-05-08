@@ -50,7 +50,7 @@ class ContinueWithPhone extends StatelessWidget {
                   CustomFormField(
                     controller: phoneNumberController,
                     keyboard: TextInputType.phone,
-                    hint: "",
+                    hint: "Phone Number",
                     prefix: "+250",
                   ),
                   CustomFormField(

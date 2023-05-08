@@ -44,7 +44,7 @@ class ForgotPassword extends StatelessWidget {
                   CustomFormField(
                     controller: phoneNumberController,
                     keyboard: TextInputType.phone,
-                    hint: "",
+                    hint: "Phone number",
                     prefix: "+250",
                   ),
                   RoundedStyledButton(
