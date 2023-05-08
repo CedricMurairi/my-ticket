@@ -65,11 +65,13 @@ class ResetPassword extends StatelessWidget {
                     action: () {
                       if (_formKey.currentState!.validate()) {
                         triggerBottomSheet(
-                            context,
-                            const SuccessPopUp(
-                                message: "Password Reset\nSuccessfully",
-                                description:
-                                    "Your password was reset successfully.\nYou can now login with your new password. "));
+                          context,
+                          const SuccessPopUp(
+                              message: "Password Reset\nSuccessfully",
+                              description:
+                                  "Your password was reset successfully.\nYou can now login with your new password. "),
+                          0.5,
+                        );
                       }
                     },
                   ),

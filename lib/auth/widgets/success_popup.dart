@@ -22,12 +22,25 @@ class SuccessPopUp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Icon(Icons.check_circle, color: Color(0xff48742c), size: 100,),
+            const Icon(
+              Icons.check_circle,
+              color: Color(0xff48742c),
+              size: 100,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
-              child: Text(message, textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-            Text(description, textAlign: TextAlign.center, style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400),),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+            ),
           ],
         ),
       ),

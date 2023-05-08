@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/svg.dart';
+import 'package:my_ticket/models/user.dart';
+import 'package:provider/provider.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
 import '../../firebase/auth.dart';
 import '../../shared/rounded_styled_button.dart';
@@ -54,16 +56,23 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-            action:() async {
-              User? user = await authenticateWithGoogle();
-              if (user != null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Signed as ${user.email}'),
-                  ),
-                );
-                Navigator.pushNamed(context, '/client-home');
-              }
+            action: () {
+              User? user;
+              authenticateWithGoogle().then((value) => null).whenComplete(
+                () {
+                  user = FirebaseAuth.instance.currentUser;
+                  if (user != null) {
+                    Provider.of<UserModel>(context, listen: false)
+                        .setUser(user);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Signed in with Google'),
+                      ),
+                    );
+                    Navigator.pushNamed(context, '/listings');
+                  }
+                },
+              );
             },
           ),
           AuthenticationMessage(

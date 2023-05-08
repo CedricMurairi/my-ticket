@@ -1,0 +1,92 @@
+[
+    {
+      "id": 1,
+      "from": "Kigali",
+      "to": "Bukavu",
+      "price": 120.0,
+      "date_of_departure": "2023-05-07",
+      "time_of_departure": "08:30",
+      "bus_operator": "Alpha Express",
+      "count": 20
+    },
+    {
+      "id": 2,
+      "from": "Goma",
+      "to": "Ruhengeri",
+      "price": 80.0,
+      "date_of_departure": "2023-05-08",
+      "time_of_departure": "10:00",
+      "bus_operator": "Beta Bus",
+      "count": 15
+    },
+    {
+      "id": 3,
+      "from": "Butare",
+      "to": "Gisenyi",
+      "price": 150.0,
+      "date_of_departure": "2023-05-10",
+      "time_of_departure": "14:30",
+      "bus_operator": "Zeta Transport",
+      "count": 8
+    },
+    {
+      "id": 4,
+      "from": "Kinshasa",
+      "to": "Musanze",
+      "price": 200.0,
+      "date_of_departure": "2023-05-12",
+      "time_of_departure": "09:00",
+      "bus_operator": "Delta Lines",
+      "count": 10
+    },
+    {
+      "id": 5,
+      "from": "Gisenyi",
+      "to": "Lubumbashi",
+      "price": 250.0,
+      "date_of_departure": "2023-05-15",
+      "time_of_departure": "12:00",
+      "bus_operator": "Gamma Transit",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "from": "Bukavu",
+      "to": "Kigali",
+      "price": 120.0,
+      "date_of_departure": "2023-05-17",
+      "time_of_departure": "13:30",
+      "bus_operator": "Alpha Express",
+      "count": 25
+    },
+    {
+      "id": 7,
+      "from": "Ruhengeri",
+      "to": "Goma",
+      "price": 80.0,
+      "date_of_departure": "2023-05-19",
+      "time_of_departure": "11:00",
+      "bus_operator": "Beta Bus",
+      "count": 18
+    },
+    {
+      "id": 8,
+      "from": "Goma",
+      "to": "Butare",
+      "price": 150.0,
+      "date_of_departure": "2023-05-22",
+      "time_of_departure": "07:30",
+      "bus_operator": "Zeta Transport",
+      "count": 12
+    },
+    {
+      "id": 9,
+      "from": "Musanze",
+      "to": "Kinshasa",
+      "price": 200.0,
+      "date_of_departure": "2023-05-25",
+      "time_of_departure": "10:30",
+      "bus_operator": "Delta Lines",
+      "count": 6
+    }
+]

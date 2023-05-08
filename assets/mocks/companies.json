@@ -1,0 +1,34 @@
+{
+    "companies": [
+        {
+            "id": 1,
+            "company_name": "Alpha Express",
+            "description": "Alpha Express is a leading bus operator providing safe and reliable transportation services throughout the region. Our modern fleet of buses are equipped with comfortable seats, air conditioning, and onboard entertainment to ensure a comfortable and enjoyable journey for all passengers.",
+            "display_image": "https://example.com/alpha-express.jpg"
+        },
+        {
+            "id": 2,
+            "company_name": "Beta Bus",
+            "description": "Beta Bus is a family-owned business that has been providing quality bus transportation services for over 50 years. Our experienced drivers and staff are committed to providing safe and reliable transportation services to our customers. We take pride in our clean and well-maintained buses that offer comfortable seats and air conditioning.",
+            "display_image": "https://example.com/beta-bus.jpg"
+        },
+        {
+            "id": 3,
+            "company_name": "Zeta Transport",
+            "description": "Zeta Transport is a premium bus operator that offers luxurious travel experiences to our customers. Our state-of-the-art buses are equipped with spacious seats, personal entertainment systems, and complimentary refreshments. Our professional drivers are dedicated to providing a safe and comfortable journey for all passengers.",
+            "display_image": "https://example.com/zeta-transport.jpg"
+        },
+        {
+            "id": 4,
+            "company_name": "Delta Lines",
+            "description": "Delta Lines is a reliable and efficient bus operator that provides transportation services to destinations throughout the region. Our modern buses are equipped with comfortable seating, air conditioning, and onboard amenities such as Wi-Fi and power outlets. Our experienced drivers are committed to providing safe and timely journeys to all our passengers.",
+            "display_image": "https://example.com/delta-lines.jpg"
+        },
+        {
+            "id": 5,
+            "company_name": "Gamma Transit",
+            "description": "Gamma Transit is a trusted bus operator that provides safe and affordable transportation services to our customers. Our buses are clean and well-maintained, and our drivers are experienced and professional. We strive to provide a comfortable and enjoyable journey for all passengers.",
+            "display_image": "https://example.com/gamma-transit.jpg"
+        }
+    ]
+}

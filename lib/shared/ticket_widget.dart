@@ -1,226 +1,134 @@
 import 'package:flutter/material.dart';
+import 'package:my_ticket/models/user.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class TransportationTicket extends StatelessWidget {
-  const TransportationTicket({super.key});
-
-  /*  final String ticketId;
-  final DateTime date;
-  final String fromCity;
-  final String toCity;
-  final String passengerName;
-  final String departureTime;
-
-    TransportationTicket({
-    required this.ticketId,
-    required this.date,
-    required this.fromCity,
-    required this.toCity,
-    required this.passengerName,
-    required this.departureTime,
-  }); */
-
-/* TransportationTicket(
-  {
-    ticketId: '123456',
-    date: DateTime.now(),
-    fromCity: 'New York - USA',
-    toCity: 'London - UK',
-    passengerName: 'John Doe',
-    departureTime: '10:00 AM',
-  }
-); */
+class Ticket extends StatelessWidget {
+  final Map<String, dynamic> ticket;
+  const Ticket({required this.ticket, super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Generate QR code for the scan code
-    final qrCode = QrImage(
-/*       data: ticketId,
- */
-      data: 'TG1234',
-      version: QrVersions.auto,
-      size: 100.0,
-    );
+    final user = Provider.of<UserModel>(context).user;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Ticket'),
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Ticket ID and date
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Ticket ID',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          )),
-                      SizedBox(
-                          height:
-                              10), // Add some space between the texts and the column
+    // TODO User should cancel and/or transfer ticket
+    // TODO Ticket shoul include a stepper showing verification at each checkpoint
 
-                      Text('TG1234',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold))
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Date',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          )),
-                      SizedBox(
-                          height:
-                              10), // Add some space between the texts and the column
-
-                      Text('20-03-2023',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
-                    ],
-                  )
-                ],
-              ),
-
-              SizedBox(height: 25.0),
-
-              // From and to destinations
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Kigali, Rwanda',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      SizedBox(
-                          height:
-                              10), // Add some space between the texts and the column
-
-                      Text('KGL',
-                          style: TextStyle(
-                              fontSize: 25.0, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                  Text(
-                    '-',
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Goma, DR Congo',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      SizedBox(
-                          height:
-                              10), // Add some space between the texts and the column
-
-                      Text(
-                        'GMO',
-                        style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-
-              SizedBox(height: 20.0),
-              Divider(
-                thickness: 3, // Set the thickness of the line
-                color: Colors.black, // Set the color of the line
-              ),
-              SizedBox(height: 20.0),
-              Center(
-                child: Column(
+    return Center(
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Text('Ticket ID'),
                     Text(
-                      'Passenger Name',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                      ),
+                      ticket['id'].toString(),
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const Text('Date'),
+                    Text(
+                      ticket['date_of_departure'],
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
-                        height:
-                            10), // Add some space between the texts and the column
-                    Text(
-                      'Serge Tassiga',
-                      style: TextStyle(
-                          fontSize: 21.0, fontWeight: FontWeight.bold),
+                  ],
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  ticket['from'],
+                  style: const TextStyle(
+                      fontSize: 25.0, fontWeight: FontWeight.bold),
+                ),
+                const Text(
+                  '-',
+                  style: TextStyle(fontSize: 50.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  ticket["to"],
+                  style: const TextStyle(
+                      fontSize: 25.0, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const Divider(
+              thickness: 0.5,
+              color: Color(0xFFD9D9D9),
+            ),
+            Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    child: Text('Passenger Name'),
+                  ),
+                  Text(
+                    user?.displayName ?? '',
+                    style: const TextStyle(
+                        fontSize: 21.0, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 0.5,
+              color: Color(0xFFD9D9D9),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Departure Time'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        "${ticket["time_of_departure"]} AM",
+                        style: const TextStyle(
+                            fontSize: 21.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFD9D9D9)),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20.0),
-              Divider(
-                thickness: 3, // Set the thickness of the line
-                color: Colors.black, // Set the color of the line
-              ),
-
-              SizedBox(height: 20.0),
-
-              // Departure time and QR code
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Departure Time',
-                        style: TextStyle(
-                          fontSize: 14.0,
-                        ),
-                      ),
-                      SizedBox(
-                          height:
-                              5), // Add some space between the texts and the column
-                      Text(
-                        '10:00 AM',
-                        style: TextStyle(
-                            fontSize: 21.0,
-                            fontWeight: FontWeight.bold,
-                            backgroundColor: Colors.grey[800],
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  // Empty space for spacing out the widgets
-                  SizedBox(height: 20.0),
-
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.all(5.0),
-                      /*  decoration: BoxDecoration(
-                  border: Border.all(width: 1.0),
-                ), */
-
-                      child: qrCode, // Your QR code widget
+                Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.width * 0.5,
+                    padding: const EdgeInsets.all(5.0),
+                    child: QrImage(
+                      data: {
+                        'ticket_id': ticket['id'],
+                        'user_id': user?.uid,
+                      }.toString(),
+                      version: QrVersions.auto,
+                      size: 100.0,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
