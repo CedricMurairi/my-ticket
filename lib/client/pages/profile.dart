@@ -105,8 +105,8 @@ class _ProfileState extends State<Profile> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.06,
-                  vertical: 10.0),
+                  horizontal: MediaQuery.of(context).size.width * 0.1,
+                  vertical: 20.0),
               child: Row(
                 children: [
                   Expanded(
@@ -122,6 +122,8 @@ class _ProfileState extends State<Profile> {
                               );
                         },
                         customFontSize: 18,
+                        alignment: Alignment.topLeft,
+                        color: const Color.fromARGB(255, 160, 160, 160),
                       )),
                 ],
               ),
