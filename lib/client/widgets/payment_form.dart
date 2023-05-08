@@ -165,11 +165,17 @@ class _PaymentFormState extends State<PaymentForm> {
             children: [
               RoundedStyledButton(
                 action: () {
+                  // TODO Process payment
                   bookingOps.addBooking({
                     "id": bookings.isNotEmpty ? bookings.last["id"] + 1 : 1,
                     "ticketId": widget.ticket["id"],
                     "userId": user.user?.uid,
                   });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Dummy Booking Successful"),
+                    ),
+                  );
                 },
                 color: const Color.fromRGBO(217, 231, 203, 1),
                 child: const Text(

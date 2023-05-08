@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_ticket/shared/ticket_widget.dart';
 import 'dart:math';
 
 import '../client/widgets/payment_form.dart';
@@ -83,8 +84,8 @@ class _TicketCardState extends State<TicketCard> {
                             ? PaymentForm(
                                 ticket: widget.ticket,
                               )
-                            : const Placeholder(),
-                        0.70,
+                            : Ticket(ticket: widget.ticket),
+                        widget.toBook == true ? 0.70 : 0.55,
                       );
                     },
                     style: ElevatedButton.styleFrom(

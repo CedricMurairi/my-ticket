@@ -9,12 +9,6 @@ class Ticket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final qrCode = QrImage(
-      data: 'TG1234',
-      version: QrVersions.auto,
-      size: 100.0,
-    );
-
     final user = Provider.of<UserModel>(context).user;
 
     // TODO User should cancel and/or transfer ticket
@@ -122,7 +116,14 @@ class Ticket extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: MediaQuery.of(context).size.width * 0.5,
                     padding: const EdgeInsets.all(5.0),
-                    child: qrCode,
+                    child: QrImage(
+                      data: {
+                        'ticket_id': ticket['id'],
+                        'user_id': user?.uid,
+                      }.toString(),
+                      version: QrVersions.auto,
+                      size: 100.0,
+                    ),
                   ),
                 ),
               ],

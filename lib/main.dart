@@ -10,7 +10,6 @@ import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onboarding_screen.dart';
 import 'package:my_ticket/auth/pages/register.dart';
 import 'package:my_ticket/client/pages/listings.dart';
-import 'package:my_ticket/shared/ticket_widget.dart';
 import 'package:my_ticket/auth/pages/continue_with_phone.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +63,6 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => const Dashboard(),
         '/profile': (context) => const Profile(),
         '/settings': (context) => const Settings(),
-        '/ticket': (context) => const TransportationTicket(),
       },
     );
   }
