@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/pages/code_confirmation.dart';
 import 'package:my_ticket/auth/pages/login_with_phone.dart';

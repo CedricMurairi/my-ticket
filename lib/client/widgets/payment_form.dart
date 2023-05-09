@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/models/bookings.dart';
+import 'package:my_ticket/models/data.dart';
 import 'package:my_ticket/models/user.dart';
 import 'package:provider/provider.dart';
 
@@ -33,10 +34,24 @@ class _PaymentFormState extends State<PaymentForm> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() {
+    Provider.of<DataModel>(context, listen: false)
+        .setData()
+        .then((value) => null);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final bookingOps = Provider.of<BookingsModel>(context);
-    final bookings = Provider.of<BookingsModel>(context).bookings ?? [];
-    final user = Provider.of<UserModel>(context);
+    final bookingOps = Provider.of<BookingsModel>(context, listen: false);
+    final bookings =
+        Provider.of<BookingsModel>(context, listen: true).bookings ?? [];
+    final user = Provider.of<UserModel>(context, listen: true);
+    final data = Provider.of<DataModel>(context, listen: true);
 
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
@@ -117,9 +132,14 @@ class _PaymentFormState extends State<PaymentForm> {
                 children: [
                   CustomFormField(
                     controller: phoneNumberController,
-                    hint: "Phone Number",
+                    hint: data.savePhoneNumber && data.phoneNumber!.isNotEmpty
+                        ? "${data.phoneNumber}"
+                        : "Phone Number",
                     keyboard: TextInputType.phone,
                     prefix: "+250",
+                    enabled: data.savePhoneNumber
+                        ? false
+                        : phoneNumberController.text.isEmpty,
                   ),
                   CustomFormField(
                     hint: "${widget.ticket['price']}RWF",
@@ -140,12 +160,13 @@ class _PaymentFormState extends State<PaymentForm> {
                 StatefulBuilder(
                   builder: ((context, setState) => Checkbox(
                         key: const Key("saveForLater"),
-                        value: saveForLater,
+                        value: data.savePhoneNumber,
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.resolveWith(getColor),
                         onChanged: (bool? value) => {
                           setState(() {
-                            saveForLater = value!;
+                            data.setSavePhoneNumber(value!);
+                            data.saveData().then((value) => null);
                           })
                         },
                       )),
@@ -165,12 +186,15 @@ class _PaymentFormState extends State<PaymentForm> {
             children: [
               RoundedStyledButton(
                 action: () {
-                  // TODO Process payment
                   bookingOps.addBooking({
                     "id": bookings.isNotEmpty ? bookings.last["id"] + 1 : 1,
                     "ticketId": widget.ticket["id"],
                     "userId": user.user?.uid,
                   });
+                  data.savePhoneNumber
+                      ? data.setPhoneNumber(phoneNumberController.value.text)
+                      : data.setPhoneNumber("");
+                  data.saveData().then((value) => null);
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Dummy Booking Successful"),

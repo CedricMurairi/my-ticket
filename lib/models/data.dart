@@ -52,6 +52,19 @@ class DataModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> saveData() async {
+    final List<Map<String, dynamic>> data = [
+      {
+        'notify': _notify,
+        'phoneNumber': _phoneNumber,
+        'savePhoneNumber': _savePhoneNumber
+      }
+    ];
+    await writeData(json.encode(data));
+    await setData();
+    readData().then((value) => print(value));
+  }
+
   void setNotify(bool notify) {
     if (notify == _notify) return;
     _notify = notify;
