@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/layout/auth_layout.dart';
 import 'package:my_ticket/auth/widgets/auth_message.dart';
@@ -7,13 +6,15 @@ import 'package:my_ticket/shared/rounded_styled_button.dart';
 import 'package:my_ticket/shared/text_button.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import '../../firebase/auth.dart';
+import 'package:my_ticket/firebase/auth.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserModel>(context, listen: true);
+
     return AuthenticationLayout(
       leadingIsButton: false,
       leadingText: 'Register',
@@ -58,19 +59,27 @@ class Register extends StatelessWidget {
               ],
             ),
             action: () {
-              User? user;
-              authenticateWithGoogle()
-                  .then((value) => null)
-                  .whenComplete(() => user = FirebaseAuth.instance.currentUser);
-              if (user != null) {
-                Provider.of<UserModel>(context).setUser(user);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Registered as ${user?.email}'),
-                  ),
-                );
-                Navigator.pushNamed(context, '/listings');
-              }
+              user.getUser().then((value) {
+                if (user.user == null) {
+                  authenticateWithGoogle().then((value) {
+                    if (user.user != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Registere as ${user.user?.email}'),
+                        ),
+                      );
+                      Navigator.pushReplacementNamed(context, '/listings');
+                    }
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Signed in with Google'),
+                    ),
+                  );
+                  Navigator.pushReplacementNamed(context, '/listings');
+                }
+              });
             },
           ),
           AuthenticationMessage(
