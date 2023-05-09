@@ -137,9 +137,7 @@ class _PaymentFormState extends State<PaymentForm> {
                         : "Phone Number",
                     keyboard: TextInputType.phone,
                     prefix: "+250",
-                    enabled: data.savePhoneNumber
-                        ? false
-                        : phoneNumberController.text.isEmpty,
+                    enabled: data.savePhoneNumber,
                   ),
                   CustomFormField(
                     hint: "${widget.ticket['price']}RWF",
