@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/pages/code_confirmation.dart';
 import 'package:my_ticket/auth/pages/login_with_phone.dart';
@@ -6,6 +8,7 @@ import 'package:my_ticket/client/pages/dashboard.dart';
 import 'package:my_ticket/client/pages/profile.dart';
 import 'package:my_ticket/client/pages/settings.dart';
 import 'package:my_ticket/models/bookings.dart';
+import 'package:my_ticket/models/data.dart';
 import 'package:my_ticket/models/tickets.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onboarding_screen.dart';
@@ -32,6 +35,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => UserModel()),
         ChangeNotifierProvider(create: (context) => BookingsModel()),
         ChangeNotifierProvider(create: (context) => TicketModel()),
+        ChangeNotifierProvider(create: (context) => DataModel()),
       ],
       child: const MyApp(),
     ),
