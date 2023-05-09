@@ -1,11 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:my_ticket/models/tickets.dart';
 import 'package:my_ticket/shared/ticket_card.dart';
+import 'package:provider/provider.dart';
 
-import '../widgets/search_form.dart';
+import 'package:my_ticket/client/widgets/search_form.dart';
 
 class Listings extends StatefulWidget {
   const Listings({super.key});
@@ -15,20 +15,27 @@ class Listings extends StatefulWidget {
 }
 
 class _ListingsState extends State<Listings> {
-  List<Map<String, dynamic>> tickets = [];
-
   @override
   void initState() {
     super.initState();
+    getTickets();
+  }
+
+  void getTickets() {
     rootBundle.loadString('assets/mocks/tickets.json').then((value) {
-      setState(() {
-        tickets = List<Map<String, dynamic>>.from(json.decode(value));
-      });
+      final tickets = Provider.of<TicketModel>(context, listen: false);
+      tickets
+          .writeTickets(value)
+          .then((value) => {tickets.setTickets().then((value) => null)});
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final tickets =
+        Provider.of<TicketModel>(context, listen: true).tickets ?? [];
+    final isSearching =
+        Provider.of<TicketModel>(context, listen: true).searching;
     return MainLayout(
         child: Container(
       width: MediaQuery.of(context).size.width,
@@ -82,12 +89,35 @@ class _ListingsState extends State<Listings> {
                 key: const PageStorageKey('tickets'),
                 itemBuilder: ((context, index) => TicketCard(
                       ticket: tickets[index],
-                      // currency: location[0].isoCountryCode ?? "RWF",
                     )),
                 itemCount: tickets.length,
               ),
             ),
-          )
+          ),
+          isSearching && tickets.isEmpty
+              ? const Center(
+                  child: Center(child: Text("No tickets matching your search")),
+                )
+              : const Text(""),
+          isSearching
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: TextButton.icon(
+                    onPressed: () {
+                      getTickets();
+                    },
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Color(0xFFD9D9D9),
+                    ),
+                    label: const Text(
+                      "Clear Search",
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 192, 190, 190)),
+                    ),
+                  ),
+                )
+              : const Text("")
         ],
       ),
     ));
