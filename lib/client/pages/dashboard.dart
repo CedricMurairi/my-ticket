@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
-import 'package:flutter/services.dart' show rootBundle;
+// import 'package:flutter/services.dart' show rootBundle;
 import 'package:my_ticket/models/bookings.dart';
+import 'package:my_ticket/models/tickets.dart';
 import 'package:provider/provider.dart';
 
-import '../../shared/ticket_card.dart';
+import 'package:my_ticket/shared/ticket_card.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -23,23 +22,25 @@ class _DashboardState extends State<Dashboard> {
     Text('Past'),
   ];
 
-  List<Map<String, dynamic>> tickets = [];
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      rootBundle.loadString('assets/mocks/tickets.json').then((value) {
-        setState(() {
-          tickets = List<Map<String, dynamic>>.from(json.decode(value));
-        });
-      });
-      Provider.of<BookingsModel>(context, listen: false).setBookings();
-    });
+    getData();
+  }
+
+  void getData() {
+    Provider.of<TicketModel>(context, listen: false)
+        .setTickets()
+        .then((value) => null);
+    Provider.of<BookingsModel>(context, listen: false)
+        .setBookings()
+        .then((value) => null);
   }
 
   @override
   Widget build(BuildContext context) {
+    final tickets =
+        Provider.of<TicketModel>(context, listen: true).tickets ?? [];
     final bookings =
         Provider.of<BookingsModel>(context, listen: true).bookings ?? [];
 
@@ -115,13 +116,14 @@ class _DashboardState extends State<Dashboard> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   key: const PageStorageKey('tickets'),
-                  itemBuilder: ((context, index) => TicketCard(
-                        ticket: tickets.isNotEmpty && bookings.isNotEmpty
-                            ? tickets.firstWhere((element) =>
-                                element["id"] == bookings[index]['ticketId'])
-                            : {},
-                        toBook: false,
-                      )),
+                  itemBuilder: ((context, index) =>
+                      tickets.isNotEmpty && bookings.isNotEmpty
+                          ? TicketCard(
+                              ticket: tickets.firstWhere((element) =>
+                                  element["id"] == bookings[index]['ticketId']),
+                              toBook: false,
+                            )
+                          : const Center(child: Text('No tickets booked yet'))),
                   itemCount: bookings.length,
                 ),
               ),

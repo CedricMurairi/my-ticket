@@ -22,6 +22,9 @@ class _ListingsState extends State<Listings> {
   }
 
   void getTickets() {
+    if (Provider.of<TicketModel>(context, listen: false).searching == true) {
+      return;
+    }
     rootBundle.loadString('assets/mocks/tickets.json').then((value) {
       final tickets = Provider.of<TicketModel>(context, listen: false);
       tickets

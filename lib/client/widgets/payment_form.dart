@@ -47,9 +47,8 @@ class _PaymentFormState extends State<PaymentForm> {
 
   @override
   Widget build(BuildContext context) {
-    final bookingOps = Provider.of<BookingsModel>(context, listen: false);
-    final bookings =
-        Provider.of<BookingsModel>(context, listen: true).bookings ?? [];
+    final bookingOps = Provider.of<BookingsModel>(context);
+    final bookings = Provider.of<BookingsModel>(context).bookings ?? [];
     final user = Provider.of<UserModel>(context, listen: true);
     final data = Provider.of<DataModel>(context, listen: true);
 
@@ -188,7 +187,7 @@ class _PaymentFormState extends State<PaymentForm> {
                     "id": bookings.isNotEmpty ? bookings.last["id"] + 1 : 1,
                     "ticketId": widget.ticket["id"],
                     "userId": user.user?.uid,
-                  });
+                  }).then((value) => null);
                   data.savePhoneNumber
                       ? data.setPhoneNumber(phoneNumberController.value.text)
                       : data.setPhoneNumber("");
