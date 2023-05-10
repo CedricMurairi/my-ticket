@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
-// import 'package:flutter/services.dart' show rootBundle;
 import 'package:my_ticket/models/bookings.dart';
 import 'package:my_ticket/models/tickets.dart';
 import 'package:provider/provider.dart';

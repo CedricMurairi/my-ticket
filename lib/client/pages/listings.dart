@@ -35,6 +35,7 @@ class _ListingsState extends State<Listings> {
 
   @override
   Widget build(BuildContext context) {
+    final ticketsOps = Provider.of<TicketModel>(context, listen: true);
     final tickets =
         Provider.of<TicketModel>(context, listen: true).tickets ?? [];
     final isSearching =
@@ -90,9 +91,11 @@ class _ListingsState extends State<Listings> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 key: const PageStorageKey('tickets'),
-                itemBuilder: ((context, index) => TicketCard(
-                      ticket: tickets[index],
-                    )),
+                itemBuilder: ((context, index) => tickets.isNotEmpty
+                    ? TicketCard(
+                        ticket: tickets[index],
+                      )
+                    : const Text("No Tickets")),
                 itemCount: tickets.length,
               ),
             ),
@@ -107,6 +110,7 @@ class _ListingsState extends State<Listings> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: TextButton.icon(
                     onPressed: () {
+                      ticketsOps.setSearching(false);
                       getTickets();
                     },
                     icon: const Icon(
