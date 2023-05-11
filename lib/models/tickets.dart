@@ -73,10 +73,10 @@ class TicketModel extends ChangeNotifier {
     }
   }
 
-  void addTicket(Map<String, dynamic>? ticket) {
+  Future<void> addTicket(Map<String, dynamic>? ticket) async {
     if (ticket != null) {
       _tickets?.add(ticket);
-      writeTickets(json.encode(_tickets));
+      writeTickets(_tickets.toString());
       notifyListeners();
     }
   }

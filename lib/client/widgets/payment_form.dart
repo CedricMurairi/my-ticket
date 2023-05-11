@@ -4,8 +4,8 @@ import 'package:my_ticket/models/data.dart';
 import 'package:my_ticket/models/user.dart';
 import 'package:provider/provider.dart';
 
-import '../../shared/form_field.dart';
-import '../../shared/rounded_styled_button.dart';
+import 'package:my_ticket/shared/form_field.dart';
+import 'package:my_ticket/shared/rounded_styled_button.dart';
 
 class PaymentForm extends StatefulWidget {
   final Map<String, dynamic> ticket;
