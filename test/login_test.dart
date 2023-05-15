@@ -23,12 +23,9 @@ void main() {
     MockFirebaseAuth mockFirebaseAuth = MockFirebaseAuth();
     MockGoogleSignIn mockGoogleSignIn = MockGoogleSignIn();
 
-    setUp(() async {
+    testWidgets('Renders login UI correctly', (WidgetTester tester) async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
-    });
-
-    testWidgets('Renders login UI correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
         MaterialApp(
           home: ChangeNotifierProvider(
@@ -67,6 +64,7 @@ void main() {
         } catch (e) {
           debugPrint(e.toString());
         }
+        return null;
       });
 
       await tester.tap(find.text('Continue with Google'));

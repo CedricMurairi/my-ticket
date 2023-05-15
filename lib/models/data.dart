@@ -62,7 +62,6 @@ class DataModel extends ChangeNotifier {
     ];
     await writeData(json.encode(data));
     await setData();
-    readData().then((value) => print(value));
   }
 
   void setNotify(bool notify) {
