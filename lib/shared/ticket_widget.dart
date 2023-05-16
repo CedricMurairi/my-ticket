@@ -116,14 +116,13 @@ class Ticket extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: MediaQuery.of(context).size.width * 0.5,
                     padding: const EdgeInsets.all(5.0),
-                    child: QrImage(
-                      data: {
-                        'ticket_id': ticket['id'],
-                        'user_id': user?.uid,
-                      }.toString(),
-                      version: QrVersions.auto,
-                      size: 100.0,
-                    ),
+                    child: QrImageView(
+                        data: {
+                          'ticket_id': ticket['id'],
+                          'user_id': user?.uid,
+                        }.toString(),
+                        version: QrVersions.auto,
+                        size: 100.0),
                   ),
                 ),
               ],
