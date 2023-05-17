@@ -9,6 +9,7 @@ import 'package:my_ticket/shared/bottom_navigation.dart';
 
 class MainLayout extends StatefulWidget {
   final Widget child;
+
   const MainLayout({required this.child, Key? key}) : super(key: key);
 
   @override
@@ -25,11 +26,9 @@ class MainLayoutState extends State<MainLayout> {
 
   void checkUser() {
     final user = Provider.of<UserModel>(context, listen: false);
-    user.getUser().then((value) {
-      if (user.user == null) {
-        Navigator.pushReplacementNamed(context, '/login');
-      }
-    });
+    if (user.user == null) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
   }
 
   void getLocation() {

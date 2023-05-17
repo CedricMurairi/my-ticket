@@ -30,11 +30,9 @@ class _AuthenticationLayoutState extends State<AuthenticationLayout> {
 
   void checkUser() {
     final user = Provider.of<UserModel>(context, listen: false);
-    user.getUser().then((value) {
-      if (user.user != null) {
-        Navigator.pushReplacementNamed(context, '/listings');
-      }
-    });
+    if (user.user != null) {
+      Navigator.pushReplacementNamed(context, '/listings');
+    }
   }
 
   @override
