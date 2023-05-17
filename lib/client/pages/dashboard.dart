@@ -115,14 +115,18 @@ class _DashboardState extends State<Dashboard> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   key: const PageStorageKey('tickets'),
-                  itemBuilder: ((context, index) =>
-                      tickets.isNotEmpty && bookings.isNotEmpty
-                          ? TicketCard(
-                              ticket: tickets.firstWhere((element) =>
-                                  element["id"] == bookings[index]['ticketId']),
-                              toBook: false,
-                            )
-                          : const Center(child: Text('No tickets booked yet'))),
+                  itemBuilder: ((context, index) => tickets.isNotEmpty &&
+                          bookings.isNotEmpty
+                      ? TicketCard(
+                          ticket: tickets.firstWhere(
+                              (element) =>
+                                  element["id"] == bookings[index]['ticketId'],
+                              orElse: () {
+                            return {};
+                          }),
+                          toBook: false,
+                        )
+                      : const Center(child: Text('No tickets booked yet'))),
                   itemCount: bookings.length,
                 ),
               ),

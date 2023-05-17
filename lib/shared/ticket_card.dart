@@ -27,7 +27,7 @@ class _TicketCardState extends State<TicketCard> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Container(
+      child: widget.ticket.isNotEmpty ? Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         height: MediaQuery.of(context).size.height * 0.12,
         decoration: BoxDecoration(
@@ -108,7 +108,7 @@ class _TicketCardState extends State<TicketCard> {
             ),
           ],
         ),
-      ),
+      ) : const Center(child: Text("Loading...")),
     );
   }
 }
