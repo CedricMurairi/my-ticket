@@ -59,25 +59,21 @@ class Register extends StatelessWidget {
               ],
             ),
             action: () {
-              user.getUser().then((value) {
-                if (user.user == null) {
-                  authenticateWithGoogle().then((value) {
-                    if (user.user != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Registere as ${user.user?.email}'),
-                        ),
-                      );
-                      Navigator.pushReplacementNamed(context, '/listings');
-                    }
-                  });
-                } else {
+              authenticateWithGoogle().then((value) {
+                user.getUser().then((value) => null);
+                if (user.user != null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Signed in with Google'),
+                      content: Text('Registered in with Google'),
                     ),
                   );
                   Navigator.pushReplacementNamed(context, '/listings');
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('There was a problem, try again.'),
+                    ),
+                  );
                 }
               });
             },

@@ -57,25 +57,21 @@ class _LoginState extends State<Login> {
                 ],
               ),
               action: () {
-                user.getUser().then((value) {
-                  if (user.user == null) {
-                    authenticateWithGoogle().then((value) {
-                      if (user.user != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Signed in with Google'),
-                          ),
-                        );
-                        Navigator.pushReplacementNamed(context, '/listings');
-                      }
-                    });
-                  } else {
+                authenticateWithGoogle().then((value) {
+                  user.getUser().then((value) => null);
+                  if (user.user != null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Signed in with Google'),
                       ),
                     );
                     Navigator.pushReplacementNamed(context, '/listings');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('There was a problem, try again.'),
+                      ),
+                    );
                   }
                 });
               },
