@@ -18,6 +18,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    final location = Provider.of<LocationModel>(context);
+
     return MainLayout(
       child: Container(
         padding:
@@ -83,12 +85,13 @@ class _ProfileState extends State<Profile> {
                     right: MediaQuery.of(context).size.width * 0.05),
                 child: Column(
                   children: [
-                    Consumer<LocationModel>(
-                      builder: (context, location, _) => ProfileSettingsCard(
-                          title: const Text("Location"),
-                          subtitle: Text(location.userLocation!.isNotEmpty
+                    ProfileSettingsCard(
+                      title: const Text("Location"),
+                      subtitle: location.userLocation != null
+                          ? Text(location.userLocation!.isNotEmpty
                               ? "${location.userLocation![0].street ?? ''} | ${location.userLocation![0].country ?? ''}"
-                              : "")),
+                              : "")
+                          : const Text(""),
                     ),
                     ProfileSettingsCard(
                       title: const Text("Phone Number"),
