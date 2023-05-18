@@ -83,22 +83,24 @@ class _ListingsState extends State<Listings> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.04,
-                    vertical: 20),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                key: const PageStorageKey('tickets'),
-                itemBuilder: ((context, index) => tickets.isNotEmpty
-                    ? TicketCard(
-                        ticket: tickets[index],
+                padding: const EdgeInsets.only(top: 20.0),
+                child: tickets.isNotEmpty
+                    ? ListView.builder(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.04,
+                            vertical: 20),
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        key: const PageStorageKey('tickets'),
+                        itemBuilder: ((context, index) => TicketCard(
+                              ticket: tickets[index],
+                            )),
+                        itemCount: tickets.length,
                       )
-                    : const Text("No Tickets")),
-                itemCount: tickets.length,
-              ),
-            ),
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      )),
           ),
           isSearching && tickets.isEmpty
               ? const Center(
