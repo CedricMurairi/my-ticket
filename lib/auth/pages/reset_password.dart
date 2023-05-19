@@ -31,8 +31,8 @@ class ResetPassword extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 10),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_ticket/shared/ticket_widget.dart';
 import 'dart:math';
 
-import '../client/widgets/payment_form.dart';
-import '../helpers/trigger_bottom_sheet.dart';
+import 'package:my_ticket/client/widgets/payment_form.dart';
+import 'package:my_ticket/helpers/trigger_bottom_sheet.dart';
 
 class TicketCard extends StatefulWidget {
   final Map<String, dynamic> ticket;
@@ -27,7 +27,7 @@ class _TicketCardState extends State<TicketCard> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Container(
+      child: widget.ticket.isNotEmpty ? Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         height: MediaQuery.of(context).size.height * 0.12,
         decoration: BoxDecoration(
@@ -108,7 +108,7 @@ class _TicketCardState extends State<TicketCard> {
             ),
           ],
         ),
-      ),
+      ) : const Center(child: Text("Loading...")),
     );
   }
 }

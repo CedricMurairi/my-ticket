@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_ticket/client/layout/main_layout.dart';
+import 'package:my_ticket/models/data.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/user.dart';
-import '../../shared/text_button.dart';
-import '../widgets/profile_settings_card.dart';
+import 'package:my_ticket/shared/text_button.dart';
+import 'package:my_ticket/client/widgets/profile_settings_card.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -16,9 +16,21 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() {
+    Provider.of<DataModel>(context, listen: false)
+        .setData()
+        .then((value) => null);
+  }
+
+  @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
-    final user = Provider.of<UserModel>(context);
+    final data = Provider.of<DataModel>(context, listen: true);
 
     return MainLayout(
       child: Container(
@@ -60,25 +72,27 @@ class _SettingsState extends State<Settings> {
                     builder: (BuildContext context, setState) =>
                         ProfileSettingsCard(
                             title: const Text("Notifications"),
-                            subtitle: Text(user.notify == true ? "On" : "Off"),
+                            subtitle: Text(data.notify == true ? "On" : "Off"),
                             trailing: platform == TargetPlatform.iOS
                                 ? CupertinoSwitch(
                                     activeColor: const Color.fromARGB(
                                         255, 160, 160, 160),
-                                    value: user.notify ?? false,
+                                    value: data.notify,
                                     onChanged: (value) {
                                       setState(() {
-                                        user.setNotify(value);
+                                        data.setNotify(value);
+                                        data.saveData();
                                       });
                                     },
                                   )
                                 : Switch(
                                     activeColor: const Color.fromARGB(
                                         255, 160, 160, 160),
-                                    value: user.notify ?? false,
+                                    value: data.notify,
                                     onChanged: (value) {
                                       setState(() {
-                                        user.setNotify(value);
+                                        data.setNotify(value);
+                                        data.saveData();
                                       });
                                     },
                                   )),

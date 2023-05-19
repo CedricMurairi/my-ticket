@@ -7,9 +7,12 @@ class UserModel extends ChangeNotifier {
 
   User? get user => _user;
 
-  void setUser(User? user) {
-    if (user == _user) return;
-    _user = user;
+  Future<void> getUser() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == _user) return;
+      _user = user;
+      notifyListeners();
+    });
   }
 
   bool? get notify => _notify;

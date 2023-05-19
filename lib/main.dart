@@ -1,3 +1,6 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_ticket/auth/pages/code_confirmation.dart';
 import 'package:my_ticket/auth/pages/login_with_phone.dart';
@@ -6,6 +9,8 @@ import 'package:my_ticket/client/pages/dashboard.dart';
 import 'package:my_ticket/client/pages/profile.dart';
 import 'package:my_ticket/client/pages/settings.dart';
 import 'package:my_ticket/models/bookings.dart';
+import 'package:my_ticket/models/data.dart';
+import 'package:my_ticket/models/tickets.dart';
 import 'package:my_ticket/shared/splash_screen.dart';
 import 'package:my_ticket/shared/onboarding_screen.dart';
 import 'package:my_ticket/auth/pages/register.dart';
@@ -24,12 +29,27 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  analytics.logAppOpen(callOptions: AnalyticsCallOptions(global: true));
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocationModel()),
         ChangeNotifierProvider(create: (context) => UserModel()),
         ChangeNotifierProvider(create: (context) => BookingsModel()),
+        ChangeNotifierProvider(create: (context) => TicketModel()),
+        ChangeNotifierProvider(create: (context) => DataModel()),
       ],
       child: const MyApp(),
     ),
