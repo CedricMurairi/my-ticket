@@ -39,12 +39,12 @@ class BookingsModel extends ChangeNotifier {
     }
   }
 
-  void setBookings() async {
+  Future<void> setBookings() async {
     _bookings = await readBookings();
     notifyListeners();
   }
 
-  void addBooking(Map<String, dynamic>? booking) {
+  Future<void> addBooking(Map<String, dynamic>? booking) async {
     if (booking != null) {
       _bookings?.add(booking);
       writeBookings(json.encode(_bookings));

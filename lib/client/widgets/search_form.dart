@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_ticket/models/tickets.dart';
 import 'package:my_ticket/shared/form_field.dart';
 import 'package:my_ticket/shared/text_button.dart';
+import 'package:provider/provider.dart';
 
 class SearchForm extends StatefulWidget {
   const SearchForm({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _SearchFormState extends State<SearchForm> {
   @override
   Widget build(BuildContext context) {
     TargetPlatform platform = Theme.of(context).platform;
+    final tickets = Provider.of<TicketModel>(context, listen: false);
 
     return Center(
       child: Container(
@@ -192,7 +195,25 @@ class _SearchFormState extends State<SearchForm> {
                 ),
                 CustomTextButton(
                   text: "Search",
-                  action: () {},
+                  customFontSize: 18,
+                  action: () {
+                    if (_formKey.currentState!.validate()) {
+                      Map<String, String> queries = {
+                        "from": fromLocation.value.text,
+                        "to": toLocation.value.text,
+                        "date_of_departure": dateOfDeparture.value.text,
+                        "time_of_departure": timeOfDeparture.value.text,
+                      };
+                      tickets.searching == false
+                          ? tickets.searchTickets(queries)
+                          : null;
+                    }
+                    _formKey.currentState!.reset();
+                    fromLocation.clear();
+                    toLocation.clear();
+                    dateOfDeparture.clear();
+                    timeOfDeparture.clear();
+                  },
                 )
               ],
             ),

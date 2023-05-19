@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
-import '../../models/user.dart';
-import '../../shared/text_button.dart';
+import 'package:my_ticket/models/user.dart';
+import 'package:my_ticket/shared/text_button.dart';
 
 class AuthenticationLayout extends StatefulWidget {
   final bool leadingIsButton;
@@ -24,15 +23,15 @@ class AuthenticationLayout extends StatefulWidget {
 
 class _AuthenticationLayoutState extends State<AuthenticationLayout> {
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    checkUser();
+  }
 
-    if (FirebaseAuth.instance.currentUser != null) {
-      Future.delayed(Duration.zero, () {
-        Provider.of<UserModel>(context, listen: false)
-            .setUser(FirebaseAuth.instance.currentUser);
-        Navigator.pushReplacementNamed(context, '/listings');
-      });
+  void checkUser() {
+    final user = Provider.of<UserModel>(context, listen: false);
+    if (user.user != null) {
+      Navigator.pushReplacementNamed(context, '/listings');
     }
   }
 
